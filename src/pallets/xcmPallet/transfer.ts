@@ -25,6 +25,9 @@ const sendCommon = (
 
   const asset = getAssetBySymbolOrId(origin, currencySymbolOrId.toString())
 
+  console.log("Asset from symbol or Id:")
+  console.log(asset)
+
   if (destination !== undefined) {
     const originRelayChainSymbol = getRelayChainSymbol(origin)
     const destinationRelayChainSymbol = getRelayChainSymbol(destination)

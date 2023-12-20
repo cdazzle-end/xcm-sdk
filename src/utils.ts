@@ -99,6 +99,27 @@ export const generateAddressPayload = (
     }
   }
 
+  if (scenario === 'ParaToPara' && pallet === 'XTransfer') {
+    return {
+      parents: 1,
+        interior: {
+          X2: [
+            {
+              Parachain: nodeId
+            },
+            {
+              [isEthAddress ? 'AccountKey20' : 'AccountId32']: {
+                ...(version === Version.V1 && { network: 'any' }),
+                ...(isEthAddress
+                  ? { key: recipientAddress }
+                  : { id: createAccID(api, recipientAddress) })
+              }
+            }
+          ]
+        }
+    }
+  }
+
   return {
     V3: {
       parents: 0,

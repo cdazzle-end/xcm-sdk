@@ -29,6 +29,7 @@ import Moonriver from '../nodes/supported/Moonriver'
 import Mangata from '../nodes/supported/Mangata'
 import Litmus from '../nodes/supported/Litmus'
 import Kintsugi from '../nodes/supported/Kintsugi'
+import Khala from '../nodes/supported/Khala'
 import Calamari from '../nodes/supported/Calamari'
 import CrustShadow from '../nodes/supported/CrustShadow'
 import Imbue from '../nodes/supported/Imbue'
@@ -85,6 +86,7 @@ export const NODE_NAMES = [
   'InvArchTinker',
   'Karura',
   'Kintsugi',
+  'Khala',
   'Litmus',
   'Mangata',
   'Moonriver',
@@ -142,6 +144,7 @@ export const nodes: Record<TNode, ParachainNode> = {
   Integritee: new Integritee(),
   InvArchTinker: new InvArchTinker(),
   Karura: new Karura(),
+  Khala: new Khala(),
   Kintsugi: new Kintsugi(),
   Litmus: new Litmus(),
   Mangata: new Mangata(),
@@ -161,4 +164,4 @@ export const nodes: Record<TNode, ParachainNode> = {
   Zeitgeist: new Zeitgeist()
 }
 
-export const SUPPORTED_PALLETS = ['XTokens', 'OrmlXTokens', 'PolkadotXcm', 'RelayerXcm'] as const
+export const SUPPORTED_PALLETS = ['XTokens', 'OrmlXTokens', 'PolkadotXcm', 'RelayerXcm', 'XTransfer'] as const

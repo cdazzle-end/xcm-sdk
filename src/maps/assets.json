@@ -1539,7 +1539,44 @@
       {
         "symbol": "MOVR",
         "decimals": 18
+      },
+      {
+        "symbol": "KBTC",
+        "decimals": 8
+      },
+      {
+        "symbol": "KINT",
+        "decimals": 12
+      },
+      {
+        "symbol": "USDT",
+        "decimals": 6
+      },
+      {
+        "symbol": "MGX",
+        "decimals": 18
+      },
+      {
+        "symbol": "VKSM",
+        "decimals": "12"
+      },
+      {
+        "symbol": "VSKSM",
+        "decimals": "12"
+      },
+      {
+        "symbol": "vBNC",
+        "decimals": "12"
+      },
+      {
+        "symbol": "vMOVR",
+        "decimals": "18"
+      },
+      {
+        "symbol": "SDN",
+        "decimals": "18"
       }
+
     ],
     "otherAssets": []
   },
@@ -2896,6 +2933,23 @@
         "symbol": "KHA",
         "decimals": 12
       }
+    ]
+  },
+  "Khala": {
+    "paraId": 2004,
+    "relayChainAssetSymbol": "KSM",
+    "nativeAssets": [
+      {
+        "symbol": "PHA",
+        "decimals": 12
+      },
+      {
+        "symbol": "KHA",
+        "decimals": 12
+      }
+    ],
+    "otherAssets":[
+
     ]
   },
   "Quartz": {

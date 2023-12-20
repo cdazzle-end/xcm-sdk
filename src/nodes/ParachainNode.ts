@@ -10,6 +10,7 @@ import {
   type TScenario,
   type IXTokensTransfer,
   type IPolkadotXCMTransfer,
+  type IXTransferTransfer,
   Version,
   type TSerializedApiCall,
   type TTransferRelayToParaOptions
@@ -30,6 +31,10 @@ const supportsXTokens = (obj: any): obj is IXTokensTransfer => {
 
 const supportsPolkadotXCM = (obj: any): obj is IPolkadotXCMTransfer => {
   return 'transferPolkadotXCM' in obj
+}
+
+const supportsXTransfer = (obj: any): obj is IXTransferTransfer => {
+  return 'transferXTransfer' in obj
 }
 
 abstract class ParachainNode {
@@ -104,7 +109,27 @@ abstract class ParachainNode {
         scenario,
         serializedApiCallEnabled
       })
-    } else if (supportsPolkadotXCM(this)) {
+    } else if(supportsXTransfer(this)){
+      return this.transferXTransfer({
+        api,
+        currency: currencySymbol,
+        currencyID: currencyId,
+        // location,
+        amount,
+        addressSelection: generateAddressPayload(
+          api,
+          scenario,
+          'XTransfer',
+          to,
+          this.version,
+          paraId
+        ),
+        fees: getFees(scenario),
+        scenario,
+        serializedApiCallEnabled
+      })
+    } 
+    else if (supportsPolkadotXCM(this)) {
       return this.transferPolkadotXCM({
         api,
         header: createHeaderPolkadotXCM(scenario, this.version, paraId),
@@ -144,8 +169,8 @@ abstract class ParachainNode {
     return getAllNodeProviders(this.node)[0]
   }
 
-  async createApiInstance(): Promise<ApiPromise> {
-    return await createApiInstance(this.getProvider())
+  async createApiInstance(localProvider?: string): Promise<ApiPromise> {
+    return localProvider ? await createApiInstance(localProvider) : await createApiInstance(this.getProvider())
   }
 }
 

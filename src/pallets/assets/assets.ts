@@ -37,12 +37,19 @@ export const getAllAssetsSymbols = (node: TNode): string[] => {
   return [relayChainAssetSymbol, ...nativeAssetsSymbols, ...otherAssetsSymbols]
 }
 
-export const hasSupportForAsset = (node: TNode, symbol: string): boolean =>
-  getAllAssetsSymbols(node).includes(symbol)
+export const hasSupportForAsset = (node: TNode, symbol: string): boolean =>{
+  if(node == "Karura" && symbol == "KUSD"){
+    return true
+  }
+  // let allAssetSymboles = getAllAssetsSymbols(node).map((symbol) => symbol.toUpperCase())
+
+  return getAllAssetsSymbols(node).map((symbol) => symbol.toUpperCase()).includes(symbol.toUpperCase())
+}
+  
 
 export const getAssetDecimals = (node: TNode, symbol: string): number | null => {
   const { otherAssets, nativeAssets } = getAssetsObject(node)
-  const asset = [...otherAssets, ...nativeAssets].find(o => o.symbol === symbol)
+  const asset = [...otherAssets, ...nativeAssets].find(o => o.symbol?.toUpperCase() === symbol.toUpperCase())
   return asset?.decimals !== undefined ? asset.decimals : null
 }
 

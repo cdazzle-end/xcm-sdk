@@ -43,12 +43,15 @@ const sendCommon = (
       `Origin node ${origin} does not support currency or currencyId ${currencySymbolOrId}.`
     )
   }
-
+  let assetSymbol = asset?.symbol ?? "no symbol" ;
+  if(origin == "Moonriver" && assetSymbol != undefined && assetSymbol.toUpperCase().startsWith("XC")){
+    assetSymbol = assetSymbol.substring(2);
+  }
   if (
     destination !== undefined &&
     asset?.symbol !== undefined &&
     getNode(destination).assetCheckEnabled &&
-    !hasSupportForAsset(destination, asset.symbol)
+    !hasSupportForAsset(destination, assetSymbol)
   ) {
     throw new InvalidCurrencyError(
       `Destination node ${destination} does not support currency or currencyId ${currencySymbolOrId}.`

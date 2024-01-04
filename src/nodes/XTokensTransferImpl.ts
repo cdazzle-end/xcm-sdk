@@ -18,7 +18,7 @@ class XTokensTransferImpl {
   ): Extrinsic | TSerializedApiCall {
     const module = lowercaseFirstLetter(pallet.toString())
 
-    console.log(`XTokensTransfer parameters ${module} | CurrencyID: ${currencySelection} | Amount: ${amount} | Address: ${addressSelection} | fees: ${fees}`)
+    console.log(`XTokensTransfer parameters ${module} | CurrencyID: ${JSON.stringify(currencySelection)} | Amount: ${amount} | Address: ${JSON.stringify(addressSelection)} | fees: ${fees}`)
 
     if (serializedApiCallEnabled === true) {
       return {

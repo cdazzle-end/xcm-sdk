@@ -18,10 +18,13 @@ class Robonomics extends ParachainNode implements IPolkadotXCMTransfer {
   private static readonly FEE = '400000000'
 
   transferPolkadotXCM(input: PolkadotXCMTransferInput): Extrinsic | TSerializedApiCall {
+    // if (input.scenario === 'ParaToPara') {
+    //   return PolkadotXCMTransferImpl.transferPolkadotXCM(input, 'limitedReserveTransferAssets', {
+    //     Limited: Robonomics.FEE
+    //   })
+    // }
     if (input.scenario === 'ParaToPara') {
-      return PolkadotXCMTransferImpl.transferPolkadotXCM(input, 'limitedReserveTransferAssets', {
-        Limited: Robonomics.FEE
-      })
+      return PolkadotXCMTransferImpl.transferPolkadotXCM(input, 'limitedReserveTransferAssets', 'Unlimited')
     }
     return PolkadotXCMTransferImpl.transferPolkadotXCM(input, 'reserveWithdrawAssets')
   }

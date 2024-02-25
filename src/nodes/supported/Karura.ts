@@ -17,7 +17,13 @@ class Karura extends ParachainNode implements IXTokensTransfer {
   }
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    const { currency, currencyID } = input
+    let { currency, currencyID } = input
+
+    //Convert KUSD tokens appropriately
+    if(currency && currency.toUpperCase() == "AUSD" || currency?.toUpperCase() == "ASEED") {
+      currency = "KUSD"
+    }
+
     const currencySelection =
       currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currency }
     return XTokensTransferImpl.transferXTokens(input, currencySelection)

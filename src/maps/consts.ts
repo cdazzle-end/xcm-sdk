@@ -53,6 +53,7 @@ import OriginTrail from '../nodes/supported/OriginTrail'
 import Pendulum from '../nodes/supported/Pendulum'
 import Polkadex from '../nodes/supported/Polkadex'
 import Zeitgeist from '../nodes/supported/Zeitgeist'
+import Phala from '../nodes/supported/Phala'
 
 export const NODE_NAMES = [
   'AssetHubPolkadot',
@@ -70,6 +71,7 @@ export const NODE_NAMES = [
   'Litentry',
   'Moonbeam',
   'Parallel',
+  'Phala',
   'AssetHubKusama',
   'Encointer',
   'Altair',
@@ -129,6 +131,7 @@ export const nodes: Record<TNode, ParachainNode> = {
   Litentry: new Litentry(),
   Moonbeam: new Moonbeam(),
   Parallel: new Parallel(),
+  Phala: new Phala(),
   AssetHubKusama: new AssetHubKusama(),
   Encointer: new Encointer(),
   Altair: new Altair(),

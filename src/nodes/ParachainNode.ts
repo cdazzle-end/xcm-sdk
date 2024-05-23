@@ -91,7 +91,9 @@ abstract class ParachainNode {
     const scenario: TScenario = destination !== undefined ? 'ParaToPara' : 'ParaToRelay'
     const paraId = destination !== undefined ? getParaId(destination) : undefined
 
+    
     if (supportsXTokens(this)) {
+      // console.log("Building x tokens")
       return this.transferXTokens({
         api,
         currency: currencySymbol,
@@ -110,6 +112,7 @@ abstract class ParachainNode {
         serializedApiCallEnabled
       })
     } else if(supportsXTransfer(this)){
+      // console.log("Building xtransfer")
       return this.transferXTransfer({
         api,
         currency: currencySymbol,

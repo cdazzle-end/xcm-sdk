@@ -18,8 +18,12 @@ class Acala extends ParachainNode implements IXTokensTransfer {
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     const { currency, currencyID } = input
+    let currencyInput = currency;
+    if(currency?.toUpperCase() == "ASEED" || currency?.toUpperCase() == "KUSD"){ // Token has symbol ASEED but asset id is Token: AUSD
+      currencyInput = "AUSD"
+    }
     const currencySelection =
-      currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currency }
+      currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currencyInput }
     return XTokensTransferImpl.transferXTokens(input, currencySelection)
   }
 

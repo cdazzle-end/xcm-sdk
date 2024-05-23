@@ -22,11 +22,9 @@ const sendCommon = (
       'The provided asset ID is larger than the maximum safe integer value. Please provide it as a string.'
     )
   }
-
+  
   const asset = getAssetBySymbolOrId(origin, currencySymbolOrId.toString())
-
-  console.log("Asset from symbol or Id:")
-  console.log(asset)
+  console.log(`sendCommon function: Params: ${origin}, ${currencySymbolOrId}, ${amount}, ${to}, ${destination} | Paraspell Asset: ${JSON.stringify(asset)}`)
 
   if (destination !== undefined) {
     const originRelayChainSymbol = getRelayChainSymbol(origin)
@@ -44,9 +42,21 @@ const sendCommon = (
     )
   }
   let assetSymbol = asset?.symbol ?? "no symbol" ;
-  if(origin == "Moonriver" && assetSymbol != undefined && assetSymbol.toUpperCase().startsWith("XC")){
+  console.log("Asset symbol: " + assetSymbol)
+  // console.log("Starts with XC: " + assetSymbol.toUpperCase().startsWith("XC"))
+  if((origin == "Moonriver" || origin == "Moonbeam") && assetSymbol != undefined && assetSymbol.toUpperCase().startsWith("XC")){
     assetSymbol = assetSymbol.substring(2);
   }
+  if(destination == "Moonriver"  && assetSymbol != undefined && assetSymbol.toUpperCase() != "MOVR" && !assetSymbol.toUpperCase().startsWith("XC")){
+    assetSymbol = "xc" + assetSymbol;
+  }
+  if(destination == "Acala" && assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "AUSD"){
+    assetSymbol = "aSEED";
+  }
+  if(destination == "Moonbeam" && assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "ASEED"){
+    assetSymbol = "AUSD";
+  }
+
   if (
     destination !== undefined &&
     asset?.symbol !== undefined &&
@@ -54,12 +64,13 @@ const sendCommon = (
     !hasSupportForAsset(destination, assetSymbol)
   ) {
     throw new InvalidCurrencyError(
-      `Destination node ${destination} does not support currency or currencyId ${currencySymbolOrId}.`
+      `Destination node ${destination} does not support currency or currencyId ${currencySymbolOrId}. Asset Symbol ${assetSymbol} | Destination: ${destination} | Origin: ${origin} | Asset: ${JSON.stringify(asset)}`
     )
   }
 
   const currencyId = originNode.assetCheckEnabled ? asset?.assetId : currencySymbolOrId.toString()
 
+  console.log("Buidling transfer")
   return originNode.transfer(
     api,
     asset?.symbol,

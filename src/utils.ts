@@ -59,6 +59,9 @@ export const generateAddressPayload = (
   }
 
   if (scenario === 'ParaToPara' && pallet === 'XTokens') {
+    if(nodeId === 2012){
+      version = Version.V3
+    }
     return {
       [version]: {
         parents: 1,

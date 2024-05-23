@@ -38,8 +38,8 @@ export const getAllAssetsSymbols = (node: TNode): string[] => {
 }
 
 export const hasSupportForAsset = (node: TNode, symbol: string): boolean =>{
-  console.log("Checking support for asset", node, symbol)
-  if(node == "Karura" && (symbol.toUpperCase() == "KUSD" || symbol.toUpperCase() == "AUSD")){
+  // console.log("Checking support for asset", node, symbol)
+  if((node == "Karura" || node == "Basilisk") && (symbol.toUpperCase() == "KUSD" || symbol.toUpperCase() == "AUSD" || symbol.toUpperCase() == "ASEED")){
     return true
   }
   // let allAssetSymboles = getAllAssetsSymbols(node).map((symbol) => symbol.toUpperCase())

@@ -171,6 +171,23 @@
       }
     ]
   },
+  "Phala": {
+    "paraId": 2035,
+    "relayChainAssetSymbol": "DOT",
+    "nativeAssets": [
+      {
+        "symbol": "PHA",
+        "decimals": 12
+      },
+      {
+        "symbol": "KHA",
+        "decimals": 12
+      }
+    ],
+    "otherAssets":[
+
+    ]
+  },
   "Astar": {
     "paraId": 2006,
     "relayChainAssetSymbol": "DOT",
@@ -400,7 +417,7 @@
       {
         "symbol": "ASG",
         "decimals": 18
-      },
+      },  
       {
         "symbol": "BNC",
         "decimals": 12
@@ -410,7 +427,47 @@
         "decimals": 12
       },
       {
+        "symbol": "AUSD",
+        "decimals": 12
+      },
+      {
+        "symbol": "ASEED",
+        "decimals": 12
+      },
+      {
         "symbol": "DOT",
+        "decimals": 10
+      },
+      {
+        "symbol": "VDOT",
+        "decimals": 10
+      },
+      {
+        "symbol": "VASTR",
+        "decimals": 18
+      },
+      {
+        "symbol": "VMANTA",
+        "decimals": 18
+      },
+      {
+        "symbol": "FIL",
+        "decimals": 18
+      },
+      {
+        "symbol": "VFIL",
+        "decimals": 18
+      },
+      {
+        "symbol": "GLMR",
+        "decimals": 18
+      },
+      {
+        "symbol": "VGLMR",
+        "decimals": 18
+      },
+      {
+        "symbol": "PINK",
         "decimals": 10
       },
       {
@@ -438,9 +495,34 @@
         "decimals": 10
       },
       {
+        "symbol": "USDC",
+        "decimals": 6
+      },
+      {
+        "symbol": "USDT",
+        "decimals": 6
+      },
+      {
+        "symbol": "INTR",
+        "decimals": 10
+      },
+      {
+        "symbol": "MANTA",
+        "decimals": 18
+      },
+      {
+        "symbol": "IBTC",
+        "decimals": 8
+      },
+      {
+        "symbol": "VSDOT",
+        "decimals": 10
+      },
+      {
         "symbol": "MOVR",
         "decimals": 18
       }
+
     ],
     "otherAssets": []
   },
@@ -713,6 +795,16 @@
         "decimals": 18
       },
       {
+        "assetId": "101",
+        "symbol": "2-Pool-1",
+        "decimals": 18
+      },
+      {
+        "assetId": "102",
+        "symbol": "2-Pool-2",
+        "decimals": 18
+      },
+      {
         "assetId": "8",
         "symbol": "PHA",
         "decimals": 12
@@ -816,6 +908,11 @@
         "assetId": "12",
         "symbol": "ZTG",
         "decimals": 10
+      },
+      {
+        "assetId": "25",
+        "symbol": "UNQ",
+        "decimals": 18
       }
     ]
   },
@@ -1083,6 +1180,11 @@
         "assetId": "132685552157663328694213725410064821485",
         "symbol": "PHA",
         "decimals": 12
+      },
+      {
+        "assetId": "TEST ASSET",
+        "symbol": "WETH",
+        "decimals": 18
       }
     ]
   },
@@ -1568,6 +1670,10 @@
         "decimals": 12
       },
       {
+        "symbol": "ASEED",
+        "decimals": 12
+      },
+      {
         "symbol": "DOT",
         "decimals": 10
       },
@@ -1921,7 +2027,8 @@
         "decimals": 9
       },
       {
-        "assetId": "0",
+        "type": "stableAssetId",
+        "assetId": "stable 0",
         "symbol": "tKSM",
         "decimals": 12
       },
@@ -3366,11 +3473,6 @@
         "assetId": "16",
         "symbol": "ARIS",
         "decimals": 8
-      },
-      {
-        "assetId": "11",
-        "symbol": "USDT",
-        "decimals": 4
       },
       {
         "assetId": "224",

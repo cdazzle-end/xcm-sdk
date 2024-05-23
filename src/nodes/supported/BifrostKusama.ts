@@ -22,7 +22,7 @@ class BifrostKusama extends ParachainNode implements IXTokensTransfer {
     // Multiple asset options need addressing
     // const currencySelection = { Native: input.currency }
     // console.log("BUILDING BIFROST TRANSFER")
-    const currencySelection = getLocalId(input.currency, BIFROST_PARACHAIN_ID)
+    const currencySelection = getLocalId(input.currency, BIFROST_PARACHAIN_ID, "Kusama")
     // console.log("Currency selection: ", currencySelection)
     return XTokensTransferImpl.transferXTokens(input, currencySelection)
   }

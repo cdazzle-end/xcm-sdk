@@ -173,8 +173,11 @@ abstract class ParachainNode {
     return getAllNodeProviders(this.node)[0]
   }
 
-  async createApiInstance(localProvider?: string): Promise<ApiPromise> {
-    return localProvider ? await createApiInstance(localProvider) : await createApiInstance(this.getProvider())
+  async createApiInstance(localProvider?: string | null): Promise<ApiPromise> {
+    if (localProvider !== null && localProvider !== undefined) {
+      return await createApiInstance(localProvider)
+    }
+    return await createApiInstance(this.getProvider())
   }
 }
 

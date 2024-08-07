@@ -38,7 +38,7 @@ export const getAllAssetsSymbols = (node: TNode): string[] => {
 }
 
 export const hasSupportForAsset = (node: TNode, symbol: string): boolean =>{
-  if((node == "Karura" || node == "Basilisk") && (symbol.toUpperCase() == "KUSD" || symbol.toUpperCase() == "AUSD" || symbol.toUpperCase() == "ASEED")){
+  if((node === "Karura" || node === "Basilisk") && (symbol.toUpperCase() === "KUSD" || symbol.toUpperCase() === "AUSD" || symbol.toUpperCase() === "ASEED")){
     return true
   }
 

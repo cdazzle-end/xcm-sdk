@@ -43,17 +43,16 @@ const sendCommon = (
   }
   let assetSymbol = asset?.symbol ?? "no symbol" ;
   console.log("Asset symbol: " + assetSymbol)
-  // console.log("Starts with XC: " + assetSymbol.toUpperCase().startsWith("XC"))
   if((origin == "Moonriver" || origin == "Moonbeam") && assetSymbol != undefined && assetSymbol.toUpperCase().startsWith("XC")){
     assetSymbol = assetSymbol.substring(2);
   }
   if(destination == "Moonriver"  && assetSymbol != undefined && assetSymbol.toUpperCase() != "MOVR" && !assetSymbol.toUpperCase().startsWith("XC")){
     assetSymbol = "xc" + assetSymbol;
   }
-  if(destination == "Acala" && assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "AUSD"){
+  if(destination == "Acala" && (assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "AUSD")){
     assetSymbol = "aSEED";
   }
-  if(destination == "Moonbeam" && assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "ASEED"){
+  if(destination == "Moonbeam" && (assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "ASEED")){
     assetSymbol = "AUSD";
   }
 
@@ -70,7 +69,8 @@ const sendCommon = (
 
   const currencyId = originNode.assetCheckEnabled ? asset?.assetId : currencySymbolOrId.toString()
 
-  console.log("Buidling transfer")
+  // console.log("Buidling transfer")
+  // console.log(`asset.symbol: ${asset?.symbol} | currencyId: ${currencyId}`)
   return originNode.transfer(
     api,
     asset?.symbol,
@@ -126,6 +126,7 @@ export const transferRelayToParaCommon = (
   address: string,
   serializedApiCallEnabled = false
 ): Extrinsic | TSerializedApiCall | never => {
+  // console.log(`Destination: ${destination} | Amount: ${amount} | Address: ${address} | SerializedApiCallEnabled: ${serializedApiCallEnabled}`)
   const serializedApiCall = getNode(destination).transferRelayToPara({
     api,
     destination,
@@ -137,6 +138,7 @@ export const transferRelayToParaCommon = (
     return serializedApiCall
   }
 
+  // console.log("Relay to para common: " + JSON.stringify(serializedApiCall, null,2))
   return callPolkadotJsTxFunction(api, serializedApiCall)
 }
 

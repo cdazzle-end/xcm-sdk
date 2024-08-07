@@ -94,6 +94,7 @@ abstract class ParachainNode {
     
     if (supportsXTokens(this)) {
       // console.log("Building x tokens")
+      // console.log(`currencySymbol: ${currencySymbol} | currencyId: ${currencyId}`)
       return this.transferXTokens({
         api,
         currency: currencySymbol,

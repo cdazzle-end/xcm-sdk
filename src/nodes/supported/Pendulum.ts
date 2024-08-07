@@ -17,7 +17,7 @@ import XTokensTransferImpl from '../XTokensTransferImpl'
 
 class Pendulum extends ParachainNode implements IXTokensTransfer {
   constructor() {
-    super('Pendulum', 'pendulum', 'polkadot', Version.V1)
+    super('Pendulum', 'pendulum', 'polkadot', Version.V3)
   }
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
@@ -31,7 +31,9 @@ class Pendulum extends ParachainNode implements IXTokensTransfer {
       )
     }
 
-    return XTokensTransferImpl.transferXTokens(input, { XCM: input.currencyID })
+    const currencySelection = input.currency === 'PEN' ? "Native" : { XCM: input.currencyID }
+
+    return XTokensTransferImpl.transferXTokens(input, currencySelection)
   }
 
   transferRelayToPara(): TSerializedApiCall {

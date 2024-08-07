@@ -198,5 +198,9 @@
   "Polkadex": {
     "defaultPallet": "XTokens",
     "supportedPallets": ["PolkadotXcm", "XTokens"]
+  },
+  "Subsocial": {
+    "defaultPallet": "PolkadotXcm",
+    "supportedPallets": ["PolkadotXcm"]
   }
 }

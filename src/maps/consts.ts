@@ -52,11 +52,14 @@ import Nodle from '../nodes/supported/Nodle'
 import OriginTrail from '../nodes/supported/OriginTrail'
 import Pendulum from '../nodes/supported/Pendulum'
 import Polkadex from '../nodes/supported/Polkadex'
+import Subsocial from '../nodes/supported/Subsocial'
 import Zeitgeist from '../nodes/supported/Zeitgeist'
 import Phala from '../nodes/supported/Phala'
+import Kilt from '../nodes/supported/Kilt'
 
 export const NODE_NAMES = [
   'AssetHubPolkadot',
+  'Subsocial',
   'Acala',
   'Astar',
   'BifrostPolkadot',
@@ -88,6 +91,7 @@ export const NODE_NAMES = [
   'InvArchTinker',
   'Karura',
   'Kintsugi',
+  "Kilt",
   'Khala',
   'Litmus',
   'Mangata',
@@ -114,6 +118,7 @@ export const NODES_WITH_RELAY_CHAINS = [...NODE_NAMES, 'Polkadot', 'Kusama'] as 
 
 export const nodes: Record<TNode, ParachainNode> = {
   AssetHubPolkadot: new AssetHubPolkadot(),
+  Subsocial: new Subsocial(),
   Acala: new Acala(),
   Astar: new Astar(),
   Equilibrium: new Equilibrium(),
@@ -149,6 +154,7 @@ export const nodes: Record<TNode, ParachainNode> = {
   Karura: new Karura(),
   Khala: new Khala(),
   Kintsugi: new Kintsugi(),
+  Kilt: new Kilt(),
   Litmus: new Litmus(),
   Mangata: new Mangata(),
   Moonriver: new Moonriver(),
@@ -164,6 +170,7 @@ export const nodes: Record<TNode, ParachainNode> = {
   OriginTrail: new OriginTrail(),
   Pendulum: new Pendulum(),
   Polkadex: new Polkadex(),
+
   Zeitgeist: new Zeitgeist()
 }
 

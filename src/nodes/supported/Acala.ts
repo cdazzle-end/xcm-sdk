@@ -22,8 +22,17 @@ class Acala extends ParachainNode implements IXTokensTransfer {
     if(currency?.toUpperCase() == "ASEED" || currency?.toUpperCase() == "KUSD"){ // Token has symbol ASEED but asset id is Token: AUSD
       currencyInput = "AUSD"
     }
-    const currencySelection =
-      currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currencyInput }
+    
+    let currencySelection;
+    if(currencyInput?.toUpperCase() == "LCDOT"){
+      currencySelection = { LiquidCrowdloan: "13" }
+    } else if(currencyID !== undefined){
+      currencySelection = { ForeignAsset: currencyID }
+    } else {
+      currencySelection = { Token: currencyInput }
+    }
+    // const currencySelection =
+    //   currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currencyInput }
     return XTokensTransferImpl.transferXTokens(input, currencySelection)
   }
 

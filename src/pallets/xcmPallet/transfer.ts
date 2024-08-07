@@ -43,16 +43,16 @@ const sendCommon = (
   }
   let assetSymbol = asset?.symbol ?? "no symbol" ;
   console.log("Asset symbol: " + assetSymbol)
-  if((origin == "Moonriver" || origin == "Moonbeam") && assetSymbol != undefined && assetSymbol.toUpperCase().startsWith("XC")){
+  if((origin === "Moonriver" || origin === "Moonbeam") && assetSymbol !== undefined && assetSymbol.toUpperCase().startsWith("XC")){
     assetSymbol = assetSymbol.substring(2);
   }
-  if(destination == "Moonriver"  && assetSymbol != undefined && assetSymbol.toUpperCase() != "MOVR" && !assetSymbol.toUpperCase().startsWith("XC")){
+  if(destination === "Moonriver"  && assetSymbol !== undefined && assetSymbol.toUpperCase() !== "MOVR" && !assetSymbol.toUpperCase().startsWith("XC")){
     assetSymbol = "xc" + assetSymbol;
   }
-  if(destination == "Acala" && (assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "AUSD")){
+  if(destination === "Acala" && (assetSymbol.toUpperCase() === "KUSD" || assetSymbol.toUpperCase() === "AUSD")){
     assetSymbol = "aSEED";
   }
-  if(destination == "Moonbeam" && (assetSymbol.toUpperCase() == "KUSD" || assetSymbol.toUpperCase() == "ASEED")){
+  if(destination === "Moonbeam" && (assetSymbol.toUpperCase() === "KUSD" || assetSymbol.toUpperCase() === "ASEED")){
     assetSymbol = "AUSD";
   }
 

@@ -1,9 +1,14 @@
 // Contains function for getting Asset ID or Symbol used in XCM call creation
 
-import { type TNode } from '../../types'
-import { getAssetsObject } from './assets'
+// import { type TNode } from '../../types'
+import type { MyAssetRegistryObject, TNode, TRelayChainType } from '../../types'
+import { getAssetsObject, getParaId } from './assets'
 import * as allAssetsKusama from '../../maps/allAssets.json'
 import * as allAssetsPolkadot from '../../maps/allAssetsPolkadot.json'
+import fs from 'fs'
+import path from 'path'
+import { AssetDestinationError } from '../../errors/AssetDestinationError'
+import { getNode } from '../../utils'
 
 // import fs from 'fs';
 // import path from 'path';
@@ -32,11 +37,6 @@ export const getAssetBySymbolOrId = (
   symbolOrId: string | number
 ): { symbol?: string; assetId?: string } | null => {
   const { otherAssets, nativeAssets, relayChainAssetSymbol } = getAssetsObject(node)
-//   console.log(`paraspell function getAssetBySymbolOrID: Node: ${node} Getting asset symbol or ID: ${JSON.stringify(symbolOrId)}` )
-  
-// console.log("Other Assets: " + JSON.stringify(otherAssets))
-// console.log("Native Assets: " + JSON.stringify(nativeAssets))
-// console.log("Relay Chain Asset Symbol: " + JSON.stringify(relayChainAssetSymbol))
 
   const asset = [...otherAssets, ...nativeAssets].find(
     ({ symbol, assetId }) => {
@@ -48,8 +48,6 @@ export const getAssetBySymbolOrId = (
       }
   })
 
-
-  // console.log("Asset match in origin node: " + JSON.stringify(asset)) 
   if (asset !== undefined) {
     const { symbol, assetId } = asset
     return { symbol, assetId }
@@ -96,6 +94,101 @@ export const getAssetBySymbolOrId = (
   if (relayChainAssetSymbol === symbolOrId) return { symbol: relayChainAssetSymbol }
 
   return null
+}
+
+// Instead of getting paraspell asset ({symbol, id}), check for and retrieve asset registry object from local registry
+export const getAssetByLocalId = (
+  node: TNode,
+  assetId: string
+): MyAssetRegistryObject | null => {
+
+  const nodeData = getAssetsObject(node)
+  const paraId = nodeData.paraId
+  const relayAssetSymbol = nodeData.relayChainAssetSymbol
+  
+  const relayChain: TRelayChainType = relayAssetSymbol === 'DOT' ? 'polkadot' : 'kusama' 
+  const assetRegistryObject: MyAssetRegistryObject | null = getAssetRegistryObject(paraId, assetId, relayChain)
+
+  return assetRegistryObject
+
+}
+
+// TODO Make asset registry a dynamic import, not a static file read from absolute path
+export function getAssetRegistry(relay: TRelayChainType): MyAssetRegistryObject[]{
+  // Using absolute path because paraspell is imported into arb-executor
+  const polkadotAssetsDir = 'C:/Users/dazzl/CodingProjects/substrate/polkadot_assets/assets/asset_registry'
+  const assetRegistryPath = relay === 'kusama' ? 'allAssetsKusamaCollected.json' : 'allAssetsPolkadotCollected.json'
+  const assetRegistry: MyAssetRegistryObject[] = JSON.parse(fs.readFileSync(path.join(polkadotAssetsDir, assetRegistryPath), 'utf8'));
+  return assetRegistry
+}
+
+// Instead of throwing error here, we return null, and throw the error higher up where there is more context
+export function getAssetRegistryObject(paraId: number, localId: string, relay: TRelayChainType): MyAssetRegistryObject | null{
+  const assetRegistry: MyAssetRegistryObject[] = getAssetRegistry(relay)
+  const asset = assetRegistry.find((assetRegistryObject: MyAssetRegistryObject) => {
+      if(paraId === 0 && assetRegistryObject.tokenData.chain === 0){
+          return true
+      }
+      // console.log(JSON.stringify(assetRegistryObject.tokenData.localId).replace(/\\|"/g, ""))
+      return assetRegistryObject.tokenData.chain === paraId && JSON.stringify(assetRegistryObject.tokenData.localId).replace(/\\|"/g, "") === localId
+  })
+  if(asset === undefined){
+      // throw new Error(`Balance Adapter: Asset not found in registry: chainId: ${paraId}, localId: ${localId} | localId stringify: ${JSON.stringify(localId)}`)
+      // throw new AssetObjectNotFound(localId, paraId)
+      return null
+  }
+  return asset
+}
+
+export function getAssetsAtLocation(assetRegistryObject: MyAssetRegistryObject, relay: TRelayChainType): MyAssetRegistryObject[] {
+  const assetRegistry: MyAssetRegistryObject[] = getAssetRegistry(relay)
+
+  // Previous function
+  // const assetsAtLocation: MyAssetRegistryObject[] = assetRegistry
+  //     .map((assetObject) => {
+  //         if (JSON.stringify(assetObject.tokenLocation) === JSON.stringify(assetLocationObject)) {
+  //             return assetObject;
+  //         }
+  //         // return undefined
+  //     })
+  //     .filter((assetObject): assetObject is MyAssetRegistryObject => assetObject !== undefined);
+
+  // Refactored function
+  const assetsAtLocation: MyAssetRegistryObject[] = assetRegistry
+    .filter((assetObject) => 
+      JSON.stringify(assetObject.tokenLocation) === JSON.stringify(assetRegistryObject.tokenLocation)
+    );
+
+  return assetsAtLocation;
+}
+
+export const checkDestinationSupportForAsset = (destination: TNode, assetRegistryObject: MyAssetRegistryObject): void => {
+  const nodeData = getNode(destination)
+  const assetsAtLocation: MyAssetRegistryObject[] = getAssetsAtLocation(assetRegistryObject, nodeData.type)
+
+
+  const paraId = getParaId(destination)
+  const destinationAsset = assetsAtLocation.find((asset) => asset.tokenData.chain === paraId)
+  if(destinationAsset === undefined){
+    throw new AssetDestinationError(assetRegistryObject, destination)
+  }
+}
+
+export function findValueByKey(obj: any, targetKey: any): any {
+    if (typeof obj !== 'object' || obj === null) {
+        return null;
+    }
+    for (const key in obj) {
+        if (key === targetKey) {
+            return obj[key];
+        }
+
+        const foundValue: any = findValueByKey(obj[key], targetKey);
+        if (foundValue !== null) {
+            return foundValue;
+        }
+    }
+    return null;
 }
 // export const getAssetBySymbolOrId = (
 //   node: TNode,

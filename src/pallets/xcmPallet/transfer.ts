@@ -4,9 +4,62 @@ import type { ApiPromise } from '@polkadot/api'
 import { type Extrinsic, type TNode, type TSerializedApiCall } from '../../types'
 import { getNode, callPolkadotJsTxFunction } from '../../utils'
 import { getRelayChainSymbol, hasSupportForAsset } from '../assets'
-import { getAssetBySymbolOrId } from '../assets/assetsUtils'
+import { checkDestinationSupportForAsset, getAssetByLocalId, getAssetBySymbolOrId } from '../assets/assetsUtils'
 import { InvalidCurrencyError } from '../../errors/InvalidCurrencyError'
 import { IncompatibleNodesError } from '../../errors'
+import { AssetObjectNotFoundError } from '../../errors/AssetObjectError'
+import { AssetNotXcmTransferrableError } from '../../errors/AssetNotXcmTransferrableError'
+import { confirmNodesOnSameRelay } from './utils'
+
+// Send function to use MyAssetRegistry instead of paraspell assets
+// We can check for asset on destination chain by verifying asset with the same location exists on the destination chain
+const sendCommonReworked = (
+  api: ApiPromise,
+  origin: TNode,
+  assetId: string, // THIS is the main difference, always using local id as a string. 
+  amount: string,
+  to: string,
+  destination?: TNode,
+  serializedApiCallEnabled = false
+): Extrinsic | TSerializedApiCall => {
+  console.log(`sendCommonReworked function: Params: ${origin}, ${assetId}, ${amount}, ${to}, ${destination}`)
+
+  const originAssetRegistryObject = getAssetByLocalId(origin, assetId)
+  
+  // Check if found asset object in registry
+  if(originAssetRegistryObject == null){
+    throw new AssetObjectNotFoundError(origin, assetId)
+  }
+  console.log(`sendCommonReworked function: Asset object token data: ${JSON.stringify(originAssetRegistryObject.tokenData)} `)
+
+  // If asset has no location, throw xcm error
+  if(!originAssetRegistryObject.hasLocation){
+    throw new AssetNotXcmTransferrableError(origin, originAssetRegistryObject)
+  }
+  console.log(`sendCommonReworked function: Asset object location: ${JSON.stringify(originAssetRegistryObject.tokenLocation)}`)
+
+
+  // Will throw if nodes on different relay or if asset not found on destination node
+  if (destination !== undefined) {
+    confirmNodesOnSameRelay(origin, destination)
+    checkDestinationSupportForAsset(destination, originAssetRegistryObject)
+  }
+
+  const originNode = getNode(origin)
+
+  return originNode.transfer(
+    api,
+    originAssetRegistryObject.tokenData.symbol,
+    originAssetRegistryObject.tokenData.localId,
+    amount,
+    to,
+    destination,
+    serializedApiCallEnabled
+  )
+
+
+  // Check for asset on destination chain
+}
 
 const sendCommon = (
   api: ApiPromise,
@@ -26,11 +79,12 @@ const sendCommon = (
   const asset = getAssetBySymbolOrId(origin, currencySymbolOrId.toString())
   console.log(`sendCommon function: Params: ${origin}, ${currencySymbolOrId}, ${amount}, ${to}, ${destination} | Paraspell Asset: ${JSON.stringify(asset)}`)
 
+  // Check transferring between nodes on same relay
   if (destination !== undefined) {
     const originRelayChainSymbol = getRelayChainSymbol(origin)
     const destinationRelayChainSymbol = getRelayChainSymbol(destination)
     if (originRelayChainSymbol !== destinationRelayChainSymbol) {
-      throw new IncompatibleNodesError()
+      throw new IncompatibleNodesError(origin, destination)
     }
   }
 
@@ -56,6 +110,13 @@ const sendCommon = (
     assetSymbol = "AUSD";
   }
 
+  // // Check for asset 
+  // let assetSymbolCheck = false
+  // if(destination !== undefined){
+  //   assetSymbolCheck = hasSupportForAsset(destination, assetSymbol)
+  // }
+
+  // If destination node is specified, confirm destination supports asset
   if (
     destination !== undefined &&
     asset?.symbol !== undefined &&
@@ -101,18 +162,20 @@ export const sendSerializedApiCall = (
   ) as TSerializedApiCall
 }
 
+// REVIEW Changing sendCommon to sendCommonReworked. Currency parameter currencySymbolOrId will always be the local ID now
 export function send(
   api: ApiPromise,
   origin: TNode,
-  currencySymbolOrId: string | number | bigint,
+  // currencySymbolOrId: string | number | bigint,
+  currencyId: string,
   amount: string | number | bigint,
   to: string,
   destination?: TNode
 ): Extrinsic {
-  return sendCommon(
+  return sendCommonReworked(
     api,
     origin,
-    currencySymbolOrId,
+    currencyId,
     amount.toString(),
     to,
     destination

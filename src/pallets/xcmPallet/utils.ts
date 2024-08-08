@@ -1,10 +1,12 @@
-import { type Version, type TTransferRelayToParaOptions } from '../../types'
+import { IncompatibleNodesError } from '../../errors'
+import type { Version, TTransferRelayToParaOptions, TNode } from '../../types'
 import {
   createCurrencySpecification,
   createHeaderPolkadotXCM,
   generateAddressPayload
 } from '../../utils'
-import { getParaId } from '../assets'
+import { getParaId, getRelayChainSymbol } from '../assets'
+// import { getAssetRegistry } from '../assets/assetsUtils'
 
 export const constructRelayToParaParameters = (
   { api, destination, address, amount }: TTransferRelayToParaOptions,
@@ -23,3 +25,31 @@ export const constructRelayToParaParameters = (
   }
   return parameters
 }
+
+// Custom utils
+export const confirmNodesOnSameRelay = (
+  origin: TNode,
+  destination: TNode
+): void => {
+  if (destination !== undefined) {
+    const originRelayChainSymbol = getRelayChainSymbol(origin)
+    const destinationRelayChainSymbol = getRelayChainSymbol(destination)
+    if (originRelayChainSymbol !== destinationRelayChainSymbol) {
+      throw new IncompatibleNodesError(origin, destination)
+    }
+  }
+}
+
+
+// export function confirmNodesOnSameRelay(
+//   origin: TNode,
+//   destination: TNode
+// ): void => {
+//   if (destination !== undefined) {
+//     const originRelayChainSymbol = getRelayChainSymbol(origin)
+//     const destinationRelayChainSymbol = getRelayChainSymbol(destination)
+//     if (originRelayChainSymbol !== destinationRelayChainSymbol) {
+//       throw new IncompatibleNodesError()
+//     }
+//   }
+// }

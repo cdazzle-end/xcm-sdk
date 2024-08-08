@@ -1,6 +1,8 @@
+import type { TNode } from "../types"
+
 export class IncompatibleNodesError extends Error {
-  constructor() {
-    super('Transactions between nodes on different relaychains are not yet possible.')
+  constructor(origin: TNode, destination: TNode) {
+    super(`Transactions between nodes on different relaychains: ${origin} | ${destination}`)
     this.name = 'IncompatibleNodes'
   }
 }

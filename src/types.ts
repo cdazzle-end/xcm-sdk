@@ -103,3 +103,26 @@ export enum Version {
   V2 = 'V2',
   V3 = 'V3'
 }
+
+// Custom types
+export interface MyAssetRegistryObject {
+  tokenData: MyAsset,
+  hasLocation: boolean;
+  tokenLocation?: string;
+}
+
+export interface MyAsset {
+  network: string;
+  chain: number;
+  localId: string;
+  name: string;
+  symbol: string;
+  decimals: string;
+  minimalBalance?: string;
+  deposit?: string;
+  isFrozen?: boolean;
+  contractAddress?: string;
+}
+
+// // TODO Refactor projects to use relay 'Polkadot' | 'Kusama' instead
+// export type CustomRelay = 'kusama' | 'polkadot'

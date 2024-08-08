@@ -10,6 +10,7 @@ import {
 import ParachainNode from '../ParachainNode'
 import XTokensTransferImpl from '../XTokensTransferImpl'
 
+// TODO Add polkadex assets to registry
 class Polkadex extends ParachainNode implements IXTokensTransfer {
   constructor() {
     super('Polkadex', 'polkadex', 'polkadot', Version.V3)

@@ -1,13 +1,11 @@
 // Contains detailed structure of XCM call construction for Statemint Parachain
 
-import { constructRelayToParaParameters } from '../../pallets/xcmPallet/utils'
 import {
   type IPolkadotXCMTransfer,
   type PolkadotXCMTransferInput,
   Version,
   type Extrinsic,
-  type TSerializedApiCall,
-  type TTransferRelayToParaOptions
+  type TSerializedApiCall
 } from '../../types'
 import ParachainNode from '../ParachainNode'
 import PolkadotXCMTransferImpl from '../PolkadotXCMTransferImpl'

@@ -10,9 +10,9 @@ import {
 import ParachainNode from '../ParachainNode'
 import PolkadotXCMTransferImpl from '../PolkadotXCMTransferImpl'
 
-class Robonomics extends ParachainNode implements IPolkadotXCMTransfer {
+class RobonomicsKusama extends ParachainNode implements IPolkadotXCMTransfer {
   constructor() {
-    super('Robonomics', 'robonomics', 'kusama', Version.V1)
+    super('RobonomicsKusama', 'robonomicsKusama', 'kusama', Version.V3)
   }
 
   private static readonly FEE = '400000000'
@@ -30,4 +30,4 @@ class Robonomics extends ParachainNode implements IPolkadotXCMTransfer {
   }
 }
 
-export default Robonomics
+export default RobonomicsKusama

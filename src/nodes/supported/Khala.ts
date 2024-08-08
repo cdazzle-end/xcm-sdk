@@ -1,5 +1,9 @@
-import * as allAssets from '../../maps/allAssets.json' assert { type: 'json' }
-import fs from 'fs';
+// Phala/Khala uses a pallet called xTransfer.transfer instead of xTokens.transfer
+// Currently only set to support native token transfer because no reason for other tokens to be on the chain
+// but XTransfer does support the other assets. Just need to use locations as asset params
+
+// import * as allAssets from '../../maps/allAssets.json' assert { type: 'json' }
+// import fs from 'fs';
 
 import {
     type IXTransferTransfer,
@@ -23,13 +27,13 @@ import {
     //   return XTransferTransferImpl.transferXTokens(input, currencySelection)
     // }
 
-    // Khala uses a pallet called xTransfer.transfer instead of xTokens.transfer
+    // TODO Add support for other assets
     transferXTransfer(input: XTransferTransferInput): Extrinsic | TSerializedApiCall {
-        const { currency, currencyID } = input
-        if(currency != "PHA"){
-            throw new Error("Khala only supports PHA transfers")
+        const { currencyID } = input
+        if(currencyID !== "PHA"){
+            throw new Error(`Khala doesn't support xcm transfer of ${currencyID}`)
         }
-        let assetLocation = { 
+        const assetLocation = { 
             "id" : {
                 "Concrete": {
                     "interior": {

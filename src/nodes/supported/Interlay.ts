@@ -15,11 +15,13 @@ class Interlay extends ParachainNode implements IXTokensTransfer {
     super('Interlay', 'interlay', 'polkadot', Version.V3)
   }
 
+  // TODO Add assets to registry
+  // XToken input === localID
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    const { currency, currencyID } = input
-    const currencySelection =
-      currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currency }
-    return XTokensTransferImpl.transferXTokens(input, currencySelection)
+    const { currencyID } = input
+    // const currencySelection =
+    //   currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currency }
+    return XTokensTransferImpl.transferXTokens(input, currencyID)
   }
 }
 

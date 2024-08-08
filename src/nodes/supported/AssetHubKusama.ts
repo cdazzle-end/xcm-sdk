@@ -12,6 +12,7 @@ import {
 import ParachainNode from '../ParachainNode'
 import PolkadotXCMTransferImpl from '../PolkadotXCMTransferImpl'
 
+// TODO Add asset hub kusama assets to registry
 class AssetHubKusama extends ParachainNode implements IPolkadotXCMTransfer {
   constructor() {
     super('AssetHubKusama', 'KusamaAssetHub', 'kusama', Version.V3)
@@ -20,7 +21,7 @@ class AssetHubKusama extends ParachainNode implements IPolkadotXCMTransfer {
   transferPolkadotXCM(input: PolkadotXCMTransferInput): Extrinsic | TSerializedApiCall {
     // TESTED https://kusama.subscan.io/xcm_message/kusama-ddc2a48f0d8e0337832d7aae26f6c3053e1f4ffd
     // TESTED https://kusama.subscan.io/xcm_message/kusama-8e423130a4d8b61679af95dbea18a55124f99672
-    let xcmMethod = input.scenario == "ParaToRelay" ? 'limitedTeleportAssets' : 'limitedReserveTransferAssets'
+    const xcmMethod = input.scenario === "ParaToRelay" ? 'limitedTeleportAssets' : 'limitedReserveTransferAssets'
     return PolkadotXCMTransferImpl.transferPolkadotXCM(input, xcmMethod, 'Unlimited')
   }
 

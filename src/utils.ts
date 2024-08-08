@@ -144,8 +144,8 @@ export const createCurrencySpecification = (
   amount: string,
   scenario: TScenario,
   version: Version,
-  node?: TNode,
-  cur?: number | string
+  node?: TNode, // The calling node
+  cur?: string // CurrencyID
 ): any => {
   if (scenario === 'ParaToRelay') {
     return {
@@ -168,7 +168,10 @@ export const createCurrencySpecification = (
   if (scenario === 'RelayToPara' || scenario === 'ParaToPara') {
     console.log('polkadotXCM Native currency to sender chain transfer')
     if ((node === 'Darwinia' || node === 'Crab') && scenario === 'ParaToPara') {
-      // Special case for Darwinia&Crab node
+      if(cur !== 'RING' && cur !== 'CRAB'){
+        throw new Error(`XCM transfer not configured for ${node} | ${cur}`)
+      }
+      // Special case for Darwinia&Crab node. For native token RING
       return {
         V3: [
           {
@@ -219,7 +222,104 @@ export const createCurrencySpecification = (
       }
     }
 
-    if (scenario === 'ParaToPara' && node === 'Robonomics') {
+    if (scenario === 'ParaToPara' && node === 'RobonomicsKusama') {
+      return {
+        [version]: [
+          {
+            id: {
+              Concrete: {
+                parents: 0,
+                interior: 'Here'
+              }
+            },
+            fun: {
+              Fungible: amount
+            }
+          }
+        ]
+      }
+    }
+
+    if (scenario === 'ParaToPara' && node === 'RobonomicsPolkadot') {
+      return {
+        [version]: [
+          {
+            id: {
+              Concrete: {
+                parents: 0,
+                interior: 'Here'
+              }
+            },
+            fun: {
+              Fungible: amount
+            }
+          }
+        ]
+      }
+    }
+
+    if (scenario === 'ParaToPara' && node === 'OriginTrail') {
+      if(cur === undefined) throw new Error("Currency ID not specified for Origin Trail XCM transfer")
+      const palletInstance = cur === 'NEURO' ? '10' : '1'
+      return {
+        [version]: [
+          {
+            id: {
+              Concrete: {
+                parents: 0,
+                interior: {
+                  X1: {
+                    PalletInstance: palletInstance
+                  }
+                }
+              }
+            },
+            fun: {
+              Fungible: amount
+            }
+          }
+        ]
+      }
+    }
+
+    if (scenario === 'ParaToPara' && node === 'Subsocial') {
+      return {
+        [version]: [
+          {
+            id: {
+              Concrete: {
+                parents: 0,
+                interior: 'Here'
+              }
+            },
+            fun: {
+              Fungible: amount
+            }
+          }
+        ]
+      }
+    }
+
+    if (scenario === 'ParaToPara' && node === 'Quartz') {
+      return {
+        [version]: [
+          {
+            id: {
+              Concrete: {
+                parents: 0,
+                interior: 'Here'
+              }
+            },
+            fun: {
+              Fungible: amount
+            }
+          }
+        ]
+      }
+    }
+
+    if (scenario === 'ParaToPara' && (node === 'Astar' || node === 'Shiden')) {
+      if (cur !== 'ASTR' && cur !== 'SDN')
       return {
         [version]: [
           {

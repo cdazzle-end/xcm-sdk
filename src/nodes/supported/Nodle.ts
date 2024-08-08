@@ -25,9 +25,9 @@ class Nodle extends ParachainNode implements IXTokensTransfer {
       throw new ScenarioNotSupportedError(this.node, input.scenario)
     }
 
-    if (input.currency !== 'NODL') {
+    if (input.currencyID !== 'NODL') {
       throw new InvalidCurrencyError(
-        `Asset ${input.currency} is not supported by node ${this.node}.`
+        `Asset ${input.currencyID} is not supported by node ${this.node}.`
       )
     }
 

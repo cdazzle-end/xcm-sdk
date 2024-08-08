@@ -9,12 +9,16 @@ class ParaToParaBuilder implements AmountBuilder, AddressBuilder, FinalBuilder {
   private readonly api: ApiPromise
   private readonly from: TNode
   private readonly to: TNode
-  private readonly currency: string | number | bigint
+
+  // private readonly currency: string | number | bigint  
+  // REVIEW Changing currency parameter to local id. Will always be a string
+  private readonly currency: string
 
   private _amount: string | number | bigint
   private _address: string
 
-  private constructor(api: ApiPromise, from: TNode, to: TNode, currency: string | number | bigint) {
+  // REVIEW Currency now allays a string
+  private constructor(api: ApiPromise, from: TNode, to: TNode, currency: string) {
     this.api = api
     this.from = from
     this.to = to
@@ -25,7 +29,8 @@ class ParaToParaBuilder implements AmountBuilder, AddressBuilder, FinalBuilder {
     api: ApiPromise,
     from: TNode,
     to: TNode,
-    currency: string | number | bigint
+    // REVIEW changing currency to string
+    currency: string
   ): AmountBuilder {
     return new ParaToParaBuilder(api, from, to, currency)
   }
@@ -40,6 +45,7 @@ class ParaToParaBuilder implements AmountBuilder, AddressBuilder, FinalBuilder {
     return this
   }
 
+  // REVIEW function parameter now always a string, currencyID
   build(): Extrinsic {
     return send(this.api, this.from, this.currency, this._amount, this._address, this.to)
   }

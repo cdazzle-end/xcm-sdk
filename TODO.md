@@ -1,0 +1,62 @@
+# Objectives
+
+Changed asset database to local registry from paraspell assets
+Modify parachain nodes to accept local id's as currency ID and use that to create xcm extrinsics
+Chains reworked so far:
+    - [x] Acala
+    - [x] Karura
+    - [x] Altair
+    - [x] Phala
+    - [x] Khala
+    - [x] AssetHubKusama
+    - [x] AssetHubPolkadot
+    - [x] Pendulum
+    - [x] Bitgreen
+    - [x] Bajun
+    - [x] Genshiro
+    - [x] Litentry - Currently not xcm activated
+    - [x] Kilt
+    - [x] Clover - not connected to relay chain
+    - [x] Encointer - Dont know how to use. Not needed
+    - [x] Kylin - not connected to relay
+    - [x] BifrostKusama
+    - [x] Nodle
+    - [x] Subsocial
+    - [x] Integritee
+    - [x] Mangata 
+    - [x] Litmus - currently not xcm activated
+    - [x] Unique
+    - [x] Kintsugi
+    - [x] Astar
+    - [x] Basilisk
+    - [x] Moonbeam
+    - [x] Moonriver
+    - [x] Equilibrium - Not connected to relay chain
+    - [x] HydraDX
+    - [x] Shiden
+    - [x] Quartz
+    - [x] Interlay
+    - [x] Polkadex
+    - [x] Manta
+    - [x] OriginTrail
+    - [x] Turing
+    - [x] Oak - Not connected to relay
+    - [x] InvArchTinker
+    - [x] InvArch - Not connected to relay
+    - [x] ComposableFinance
+    - [x] Centrifuge
+    - [x] Amplitude
+    - [x] Crust
+    - [x] CrustShadow
+    - [x] Parallel
+    - [x] ParallelHeiko
+    - [x] Crab
+    - [x] Darwinia
+    - [x] RobonomicsKusama
+    - [x] RobonomicsPolkadot
+    - [x] Zeitgeist
+    - [x] BifrostPolkadot
+    - [x] Calamari - Not connected relay chain
+    - [x] Imbue
+    - [x] Picasso
+    - [x] Pioneer

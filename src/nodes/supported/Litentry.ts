@@ -1,4 +1,5 @@
 // Contains detailed structure of XCM call construction for Litentry Parachain
+// REVIEW Litentry currenctly not supportingX XCM
 
 import {
   type IXTokensTransfer,

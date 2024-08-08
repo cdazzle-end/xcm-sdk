@@ -15,6 +15,7 @@ class Manta extends ParachainNode implements IXTokensTransfer {
     super('Manta', 'manta', 'polkadot', Version.V1)
   }
 
+  // XTokens input === { MantaCurrency: localId }
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     return XTokensTransferImpl.transferXTokens(input, { MantaCurrency: input.currencyID })
   }

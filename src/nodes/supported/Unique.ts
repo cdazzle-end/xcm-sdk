@@ -10,13 +10,16 @@ import {
 import ParachainNode from '../ParachainNode'
 import XTokensTransferImpl from '../XTokensTransferImpl'
 
+// TODO Add unique assets to registry
 class Unique extends ParachainNode implements IXTokensTransfer {
   constructor() {
     super('Unique', 'unique', 'polkadot', Version.V3)
   }
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    return XTokensTransferImpl.transferXTokens(input, { ForeignAssetId: input.currencyID })
+    const { currencyID } = input
+    if(currencyID !== '0') throw new Error(`Unique XCM not configured for ${currencyID}`)
+    return XTokensTransferImpl.transferXTokens(input, currencyID)
   }
 }
 

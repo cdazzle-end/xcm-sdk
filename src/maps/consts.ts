@@ -33,13 +33,15 @@ import Khala from '../nodes/supported/Khala'
 import Calamari from '../nodes/supported/Calamari'
 import CrustShadow from '../nodes/supported/CrustShadow'
 import Imbue from '../nodes/supported/Imbue'
-import Integritee from '../nodes/supported/Integritee'
+import IntegriteeKusama from '../nodes/supported/IntegriteeKusama'
+import IntegriteePolkadot from '../nodes/supported/IntegriteePolkadot'
 import InvArchTinker from '../nodes/supported/InvArchTinker'
 import Karura from '../nodes/supported/Karura'
 import AssetHubPolkadot from '../nodes/supported/AssetHubPolkadot'
 import AssetHubKusama from '../nodes/supported/AssetHubKusama'
 import Encointer from '../nodes/supported/Encointer'
-import Robonomics from '../nodes/supported/Robonomics'
+import RobonomicsKusama from '../nodes/supported/RobonomicsKusama'
+import RobonomicsPolkadot from '../nodes/supported/RobonomicsPolkadot'
 import Astar from '../nodes/supported/Astar'
 import Equilibrium from '../nodes/supported/Equilibrium'
 import Darwinia from '../nodes/supported/Darwinia'
@@ -87,7 +89,8 @@ export const NODE_NAMES = [
   'CrustShadow',
   'Crab',
   'Imbue',
-  'Integritee',
+  'IntegriteeKusama',
+  'IntegriteePolkadot',
   'InvArchTinker',
   'Karura',
   'Kintsugi',
@@ -99,7 +102,8 @@ export const NODE_NAMES = [
   'ParallelHeiko',
   'Picasso',
   'Quartz',
-  'Robonomics',
+  'RobonomicsKusama',
+  'RobonomicsPolkadot',
   'Shiden',
   'Turing',
   'Equilibrium',
@@ -149,7 +153,8 @@ export const nodes: Record<TNode, ParachainNode> = {
   CrustShadow: new CrustShadow(),
   Crab: new Crab(),
   Imbue: new Imbue(),
-  Integritee: new Integritee(),
+  IntegriteeKusama: new IntegriteeKusama(),
+  IntegriteePolkadot: new IntegriteePolkadot(),
   InvArchTinker: new InvArchTinker(),
   Karura: new Karura(),
   Khala: new Khala(),
@@ -161,7 +166,8 @@ export const nodes: Record<TNode, ParachainNode> = {
   ParallelHeiko: new ParallelHeiko(),
   Picasso: new Picasso(),
   Quartz: new Quartz(),
-  Robonomics: new Robonomics(),
+  RobonomicsKusama: new RobonomicsKusama(),
+  RobonomicsPolkadot: new RobonomicsPolkadot(),
   Shiden: new Shiden(),
   Turing: new Turing(),
   Manta: new Manta(),

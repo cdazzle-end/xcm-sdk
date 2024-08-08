@@ -10,6 +10,7 @@ import {
 import ParachainNode from '../ParachainNode'
 import PolkadotXCMTransferImpl from '../PolkadotXCMTransferImpl'
 
+// TODO Add Astar assets to registry
 class Astar extends ParachainNode implements IPolkadotXCMTransfer {
   constructor() {
     super('Astar', 'astar', 'polkadot', Version.V3)

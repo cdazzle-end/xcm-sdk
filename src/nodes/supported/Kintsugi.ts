@@ -15,11 +15,12 @@ class Kintsugi extends ParachainNode implements IXTokensTransfer {
     super('Kintsugi', 'kintsugi', 'kusama', Version.V3)
   }
 
+  // TODO Add assets to registry
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    const { currency, currencyID } = input
-    const currencySelection =
-      currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currency }
-    return XTokensTransferImpl.transferXTokens(input, currencySelection)
+    const { currencyID } = input
+    // const currencySelection =
+    //   currencyID !== undefined ? { ForeignAsset: currencyID } : { Token: currency }
+    return XTokensTransferImpl.transferXTokens(input, currencyID)
   }
 }
 

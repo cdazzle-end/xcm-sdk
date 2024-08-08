@@ -11,13 +11,15 @@ import {
 import ParachainNode from '../ParachainNode'
 import XTokensTransferImpl from '../XTokensTransferImpl'
 
+
+// If asset is CRU, than input is SelfReserve
 class Crust extends ParachainNode implements IXTokensTransfer {
   constructor() {
     super('Crust', 'crustParachain', 'polkadot', Version.V3)
   }
 
   getCurrencySelection({ currency, currencyID }: XTokensTransferInput): any {
-    if (currency === 'CRU') {
+    if (currencyID === 'CRU') {
       return 'SelfReserve'
     }
 
@@ -28,6 +30,7 @@ class Crust extends ParachainNode implements IXTokensTransfer {
     return { OtherReserve: currencyID }
   }
 
+  // XTokens !== localId. CRU: SelfReserve | other assets: {OtherReserve: currencyID}
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     return XTokensTransferImpl.transferXTokens(input, this.getCurrencySelection(input), "Unlimited")
   }

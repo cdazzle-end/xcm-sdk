@@ -11,6 +11,7 @@ import {
 import ParachainNode from '../ParachainNode'
 import XTokensTransferImpl from '../XTokensTransferImpl'
 
+// TODO add Clover to asset registry. Currency not connected to relay chain
 class Clover extends ParachainNode implements IXTokensTransfer {
   constructor() {
     super('Clover', 'clover', 'polkadot', Version.V1)

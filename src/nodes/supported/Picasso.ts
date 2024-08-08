@@ -10,6 +10,7 @@ import {
 import ParachainNode from '../ParachainNode'
 import XTokensTransferImpl from '../XTokensTransferImpl'
 
+// TODO Add picasso assets to registry
 class Picasso extends ParachainNode implements IXTokensTransfer {
   constructor() {
     super('Picasso', 'picasso', 'kusama', Version.V3)

@@ -1,6 +1,5 @@
 // Contains detailed structure of XCM call construction for CrustShadow Parachain
 
-import { InvalidCurrencyError } from '../../errors/InvalidCurrencyError'
 import {
   type IXTokensTransfer,
   Version,
@@ -16,13 +15,14 @@ class CrustShadow extends ParachainNode implements IXTokensTransfer {
     super('CrustShadow', 'shadow', 'kusama', Version.V3)
   }
 
-  getCurrencySelection({ currency, currencyID }: XTokensTransferInput): any {
-    if (currency === 'CSM') {
+  // TODO Add Crust Shadow assets to registry
+  getCurrencySelection({ currencyID }: XTokensTransferInput): any {
+    if (currencyID === 'CSM') {
       return 'SelfReserve'
     }
 
     if (currencyID === undefined) {
-      throw new InvalidCurrencyError(`Asset ${currency} is not supported by node ${this.node}.`)
+      throw new Error(`Crust Shadow xcm input currencyID is not specified.`)
     }
 
     return { OtherReserve: currencyID }

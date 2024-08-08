@@ -15,12 +15,9 @@ class HydraDX extends ParachainNode implements IXTokensTransfer {
     super('HydraDX', 'hydradx', 'polkadot', Version.V3)
   }
 
+  // XToken input === localId
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    // console.log(`HydraDX transferXTokens input currency: ${JSON.stringify(input.currency)}`)
-    // console.log(`HydraDX transferXTokens input currencyId: ${JSON.stringify(input.currencyID)}`)
-    
     const { currencyID } = input
-    // console.log(`HydraDX transferXTokens currencyID: ${currencyID}`)
     return XTokensTransferImpl.transferXTokens(input, currencyID)
   }
 }

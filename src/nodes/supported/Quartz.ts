@@ -4,22 +4,22 @@ import {
   Version,
   type Extrinsic,
   type TSerializedApiCall,
-  type IXTokensTransfer,
-  type XTokensTransferInput
+  type IPolkadotXCMTransfer,
+  type PolkadotXCMTransferInput
 } from '../../types'
 import ParachainNode from '../ParachainNode'
-import XTokensTransferImpl from '../XTokensTransferImpl'
+import PolkadotXCMTransferImpl from '../PolkadotXCMTransferImpl'
 
-class Quartz extends ParachainNode implements IXTokensTransfer {
+class Quartz extends ParachainNode implements IPolkadotXCMTransfer {
   constructor() {
     super('Quartz', 'quartz', 'kusama', Version.V3)
   }
 
   _assetCheckEnabled = false
 
-  transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    const { currencyID } = input
-    return XTokensTransferImpl.transferXTokens(input, { ForeignAssetId: currencyID })
+  transferPolkadotXCM(input: PolkadotXCMTransferInput): Extrinsic | TSerializedApiCall {
+    if(input.currencySelection !== 'QTZ') throw new Error(`Quartz XCM not configured to support ${input.currencySelection}`)
+    return PolkadotXCMTransferImpl.transferPolkadotXCM(input, 'limitedReserveTransferAssets', 'Unlimited')
   }
 }
 

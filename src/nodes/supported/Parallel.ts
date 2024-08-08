@@ -16,12 +16,10 @@ class Parallel extends ParachainNode implements IXTokensTransfer {
     super('Parallel', 'parallel', 'polkadot', Version.V3) // Changed to V3
   }
 
-
+  // XTokens input === localId
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     // console.log("PARALLEL transferXTokens")
-    let xtransfer = XTokensTransferImpl.transferXTokens(input, input.currencyID)
-    // console.log("PARALLEL transferXTokens: " + JSON.stringify(xtransfer))
-    return xtransfer
+    return XTokensTransferImpl.transferXTokens(input, input.currencyID)
   }
 }
 

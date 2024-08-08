@@ -16,8 +16,9 @@ class Imbue extends ParachainNode implements IXTokensTransfer {
   }
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    const { currency } = input
-    return XTokensTransferImpl.transferXTokens(input, currency)
+    const { currencyID } = input
+    if ( currencyID !== 'Native') throw new Error(`${this.node} does not support ${currencyID}`)
+    return XTokensTransferImpl.transferXTokens(input, currencyID)
   }
 }
 

@@ -1,5 +1,5 @@
 // Contains detailed structure of XCM call construction for Kylin Parachain
-
+// REVIEW Kylin not connected to relay chain
 import {
   type IXTokensTransfer,
   Version,

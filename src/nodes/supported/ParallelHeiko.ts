@@ -15,6 +15,7 @@ class ParallelHeiko extends ParachainNode implements IXTokensTransfer {
     super('ParallelHeiko', 'heiko', 'kusama', Version.V3)
   }
 
+    // XTokens input === localId
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     return XTokensTransferImpl.transferXTokens(input, input.currencyID)
   }

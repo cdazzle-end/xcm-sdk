@@ -10,6 +10,8 @@ import { lowercaseFirstLetter } from '../utils'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class XTokensTransferImpl {
+  // Doesn't use currency asset/if from XTokensTransferInput.
+  // Need to format currency input param from parachain node
   static transferXTokens(
     { api, amount, addressSelection, serializedApiCallEnabled }: XTokensTransferInput,
     currencySelection: any,

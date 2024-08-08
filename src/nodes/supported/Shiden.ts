@@ -10,6 +10,7 @@ import {
 import ParachainNode from '../ParachainNode'
 import PolkadotXCMTransferImpl from '../PolkadotXCMTransferImpl'
 
+// TODO Add Shiden assets to registry
 class Shiden extends ParachainNode implements IPolkadotXCMTransfer {
   constructor() {
     super('Shiden', 'shiden', 'kusama', Version.V3)

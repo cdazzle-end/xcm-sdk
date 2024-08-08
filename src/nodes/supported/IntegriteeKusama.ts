@@ -11,15 +11,15 @@ import {
 import ParachainNode from '../ParachainNode'
 import XTokensTransferImpl from '../XTokensTransferImpl'
 
-class Integritee extends ParachainNode implements IXTokensTransfer {
+class IntegriteeKusama extends ParachainNode implements IXTokensTransfer {
   constructor() {
-    super('Integritee', 'integritee', 'kusama', Version.V3)
+    super('IntegriteeKusama', 'integriteeKusama', 'kusama', Version.V3)
   }
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
-    if (input.currency === 'KSM')
-      throw new InvalidCurrencyError(`Node ${this.node} does not support currency KSM`)
-    return XTokensTransferImpl.transferXTokens(input, input.currency)
+    if (input.currencyID !== 'TEER')
+      throw new InvalidCurrencyError(`Node ${this.node} does not support currency ${input.currencyID}`)
+    return XTokensTransferImpl.transferXTokens(input, input.currencyID)
   }
 
   transferRelayToPara(): TSerializedApiCall {
@@ -27,4 +27,4 @@ class Integritee extends ParachainNode implements IXTokensTransfer {
   }
 }
 
-export default Integritee
+export default IntegriteeKusama

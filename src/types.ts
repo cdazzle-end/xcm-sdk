@@ -47,10 +47,11 @@ export interface TSerializedApiCall {
   parameters: any[]
 }
 
+// Removed undefined from currency and currencyId type, asthey will always be defined in our local asset registry
 export interface XTokensTransferInput {
   api: ApiPromise
-  currency: string | undefined
-  currencyID: string | undefined
+  currency: string
+  currencyID: string
   amount: string
   addressSelection: any
   fees: number
@@ -60,9 +61,8 @@ export interface XTokensTransferInput {
 
 export interface XTransferTransferInput {
   api: ApiPromise
-  currency: string | undefined
-  currencyID: string | undefined
-  // location: any | undefined
+  currency: string
+  currencyID: string
   amount: string
   addressSelection: any
   fees: number

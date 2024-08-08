@@ -1,4 +1,4 @@
-// Contains basic structure of xTransfer call
+// Contains basic structure of xTransfer call, only Khala and Phala
 
 import {
     type Extrinsic,
@@ -12,13 +12,12 @@ import {
   class XTransferTransferImpl {
     static transferXTransfer(
       { api, amount, addressSelection, serializedApiCallEnabled }: XTransferTransferInput,
-    //   currencySelection: any,
       assetLocation: any,
       fees: string | number = 'Unlimited',
       pallet: TPallet = 'XTransfer'
     ): Extrinsic | TSerializedApiCall {
       const module = lowercaseFirstLetter(pallet.toString())
-      let assetAndAmount = {
+      const assetAndAmount = {
         assetLocation,
         "fun": {
           "Fungible": amount
@@ -31,7 +30,7 @@ import {
           parameters: [assetAndAmount, addressSelection]
         }
       }
-      let nullFees = null
+      const nullFees = null
       return api.tx[module].transfer(assetAndAmount, addressSelection, nullFees)
     }
   }

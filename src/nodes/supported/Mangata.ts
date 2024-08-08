@@ -16,13 +16,14 @@ class Mangata extends ParachainNode implements IXTokensTransfer {
     super('Mangata', 'mangata', 'kusama', Version.V3)
   }
 
+  // XTokens input === local id
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     return XTokensTransferImpl.transferXTokens(input, input.currencyID)
   }
 
   async createApiInstance(localProvider?: string): Promise<ApiPromise> {
     const MangataSDK = await import('@mangata-finance/sdk')
-    const instance = localProvider ? MangataSDK.Mangata.instance([localProvider]) : MangataSDK.Mangata.instance([this.getProvider()])
+    const instance = localProvider !== undefined ? MangataSDK.Mangata.instance([localProvider]) : MangataSDK.Mangata.instance([this.getProvider()])
     return await instance.api()
   }
 }

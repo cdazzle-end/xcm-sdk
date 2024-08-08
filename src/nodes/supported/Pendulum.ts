@@ -20,18 +20,19 @@ class Pendulum extends ParachainNode implements IXTokensTransfer {
     super('Pendulum', 'pendulum', 'polkadot', Version.V3)
   }
 
+  // TODO Add pendulum assets to registry
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     if (input.scenario !== 'ParaToPara') {
       throw new ScenarioNotSupportedError(this.node, input.scenario)
     }
 
-    if (input.currency !== 'PEN') {
+    if (input.currencyID !== 'Native') {
       throw new InvalidCurrencyError(
-        `Asset ${input.currency} is not supported by node ${this.node}.`
+        `Asset ${input.currencyID} is not supported by node ${this.node}.`
       )
     }
 
-    const currencySelection = input.currency === 'PEN' ? "Native" : { XCM: input.currencyID }
+    const currencySelection = input.currencyID === 'Native' ? "Native" : { XCM: input.currencyID }
 
     return XTokensTransferImpl.transferXTokens(input, currencySelection)
   }

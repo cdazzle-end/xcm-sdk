@@ -1995,9 +1995,20 @@
     ],
     "otherAssets": []
   },
-  "Integritee": {
+  "IntegriteeKusama": {
     "paraId": 2015,
     "relayChainAssetSymbol": "KSM",
+    "nativeAssets": [
+      {
+        "symbol": "TEER",
+        "decimals": 12
+      }
+    ],
+    "otherAssets": []
+  },
+  "IntegriteePolkadot": {
+    "paraId": 2039,
+    "relayChainAssetSymbol": "DOT",
     "nativeAssets": [
       {
         "symbol": "TEER",
@@ -3163,6 +3174,17 @@
       {
         "symbol": "QTZ",
         "decimals": 18
+      }
+    ],
+    "otherAssets": []
+  },
+  "RobonomicsPolkadot": {
+    "paraId": 3388,
+    "relayChainAssetSymbol": "DOT",
+    "nativeAssets": [
+      {
+        "symbol": "XRT",
+        "decimals": 9
       }
     ],
     "otherAssets": []

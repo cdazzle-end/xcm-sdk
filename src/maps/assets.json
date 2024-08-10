@@ -3167,7 +3167,7 @@
     ],
     "otherAssets": []
   },
-  "Robonomics": {
+  "RobonomicsKusama": {
     "paraId": 2048,
     "relayChainAssetSymbol": "KSM",
     "nativeAssets": [

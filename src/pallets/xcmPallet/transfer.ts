@@ -56,9 +56,6 @@ const sendCommonReworked = (
     destination,
     serializedApiCallEnabled
   )
-
-
-  // Check for asset on destination chain
 }
 
 const sendCommon = (
@@ -128,13 +125,14 @@ const sendCommon = (
     )
   }
 
-  const currencyId = originNode.assetCheckEnabled ? asset?.assetId : currencySymbolOrId.toString()
-
-  // console.log("Buidling transfer")
+  if (asset === null) throw new Error(`sendCommon function failed, as 'asset' is null. Paraspell asset not found in paraspell registry`)
+  const currencyId = originNode.assetCheckEnabled ? asset.assetId : currencySymbolOrId.toString()
+  if(currencyId === undefined) throw new Error(`sendCommon function failed, as 'currencyId' is null`)
+    // console.log("Buidling transfer")
   // console.log(`asset.symbol: ${asset?.symbol} | currencyId: ${currencyId}`)
   return originNode.transfer(
     api,
-    asset?.symbol,
+    assetSymbol,
     currencyId,
     amount,
     to,

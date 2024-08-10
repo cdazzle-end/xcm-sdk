@@ -211,9 +211,16 @@
     "defaultPallet": "PolkadotXcm",
     "supportedPallets": ["PolkadotXcm"]
   },
+  "Kilt": {
+    "defaultPallet": "PolkadotXcm",
+    "supportedPallets": ["PolkadotXcm"]
+  },
   "Phala": {
-    "defaultPallet": "XTokens",
-    "supportedPallets": ["PolkadotXcm", "XTokens"]
+    "defaultPallet": "XTransfer",
+    "supportedPallets": ["PolkadotXcm", "XTransfer"]
+  },
+  "Khala": {
+    "defaultPallet": "XTransfer",
+    "supportedPallets": ["PolkadotXcm", "XTransfer"]
   }
-  
 }

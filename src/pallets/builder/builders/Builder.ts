@@ -24,7 +24,8 @@ class ToGeneralBuilder {
     this.to = to
   }
 
-  currency(currency: string | number | bigint): AmountBuilder {
+  // REVIEW Changed type to string from string | number | bigint
+  currency(currency: string): AmountBuilder {
     return ParaToParaBuilder.createParaToPara(this.api, this.from, this.to, currency)
   }
 

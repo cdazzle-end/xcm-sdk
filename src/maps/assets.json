@@ -1,4 +1,26 @@
 {
+  "IntegriteeKusama": {
+    "paraId": 2015,
+    "relayChainAssetSymbol": "KSM",
+    "nativeAssets": [
+      {
+        "symbol": "TEER",
+        "decimals": 12
+      }
+    ],
+    "otherAssets": []
+  },
+  "IntegriteePolkadot": {
+    "paraId": 2039,
+    "relayChainAssetSymbol": "DOT",
+    "nativeAssets": [
+      {
+        "symbol": "TEER",
+        "decimals": 12
+      }
+    ],
+    "otherAssets": []
+  },
     "Acala": {
       "paraId": 2000,
       "relayChainAssetSymbol": "DOT",
@@ -1995,28 +2017,7 @@
     ],
     "otherAssets": []
   },
-  "IntegriteeKusama": {
-    "paraId": 2015,
-    "relayChainAssetSymbol": "KSM",
-    "nativeAssets": [
-      {
-        "symbol": "TEER",
-        "decimals": 12
-      }
-    ],
-    "otherAssets": []
-  },
-  "IntegriteePolkadot": {
-    "paraId": 2039,
-    "relayChainAssetSymbol": "DOT",
-    "nativeAssets": [
-      {
-        "symbol": "TEER",
-        "decimals": 12
-      }
-    ],
-    "otherAssets": []
-  },
+
   "InvArchTinker": {
     "paraId": 2125,
     "relayChainAssetSymbol": "KSM",

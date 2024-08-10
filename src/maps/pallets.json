@@ -107,7 +107,11 @@
     "defaultPallet": "XTokens",
     "supportedPallets": ["PolkadotXcm", "XTokens"]
   },
-  "Integritee": {
+  "IntegriteeKusama": {
+    "defaultPallet": "XTokens",
+    "supportedPallets": ["PolkadotXcm", "XTokens"]
+  },
+  "IntegriteePolkadot": {
     "defaultPallet": "XTokens",
     "supportedPallets": ["PolkadotXcm", "XTokens"]
   },
@@ -147,7 +151,11 @@
     "defaultPallet": "XTokens",
     "supportedPallets": ["XTokens", "PolkadotXcm"]
   },
-  "Robonomics": {
+  "RobonomicsKusama": {
+    "defaultPallet": "PolkadotXcm",
+    "supportedPallets": ["PolkadotXcm"]
+  },
+  "RobonomicsPolkadot": {
     "defaultPallet": "PolkadotXcm",
     "supportedPallets": ["PolkadotXcm"]
   },
@@ -202,5 +210,10 @@
   "Subsocial": {
     "defaultPallet": "PolkadotXcm",
     "supportedPallets": ["PolkadotXcm"]
+  },
+  "Phala": {
+    "defaultPallet": "XTokens",
+    "supportedPallets": ["PolkadotXcm", "XTokens"]
   }
+  
 }

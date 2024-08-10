@@ -18,7 +18,7 @@ class HydraDX extends ParachainNode implements IXTokensTransfer {
   // XToken input === localId
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     const { currencyID } = input
-    return XTokensTransferImpl.transferXTokens(input, currencyID)
+    return XTokensTransferImpl.transferXTokens(input, Number.parseInt(currencyID))
   }
 }
 

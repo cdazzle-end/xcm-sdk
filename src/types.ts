@@ -73,15 +73,18 @@ export interface XTransferTransferInput {
 export interface IXTokensTransfer {
   transferXTokens: (input: XTokensTransferInput) => Extrinsic | TSerializedApiCall
 }
+export interface IXTokensTransferMultiassets {
+  transferXTokensMultiassets: (input: XTokensTransferInput) => Extrinsic | TSerializedApiCall
+}
 export interface IXTransferTransfer{
   transferXTransfer: (input: XTransferTransferInput) => Extrinsic | TSerializedApiCall
 }
 
 export interface PolkadotXCMTransferInput {
   api: ApiPromise
-  header: any
-  addressSelection: any
-  currencySelection: any
+  header: any // Location - chain id 
+  addressSelection: any // Location - account address
+  currencySelection: any // Location - multiasset
   scenario: TScenario
   currencySymbol: string | undefined
   serializedApiCallEnabled?: boolean

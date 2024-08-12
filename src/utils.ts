@@ -16,6 +16,7 @@ import { nodes } from './maps/consts'
 import type ParachainNode from './nodes/ParachainNode'
 import { type HexString } from '@polkadot/util/types'
 
+
 export const createAccID = (api: ApiPromise, account: string): HexString => {
   console.log('Generating AccountId32 address')
   return api.createType('AccountId32', account).toHex()
@@ -32,6 +33,7 @@ export const getFees = (scenario: TScenario): number => {
   throw new Error(`Fees for scenario ${scenario} are not defined.`)
 }
 
+// Generates relevant destination parameter according to pallet and method
 export const generateAddressPayload = (
   api: ApiPromise,
   scenario: TScenario,
@@ -58,6 +60,7 @@ export const generateAddressPayload = (
     }
   }
 
+  // Generates destination parameter with chain id + account address
   if (scenario === 'ParaToPara' && pallet === 'XTokens') {
     if(nodeId === 2012){
       version = Version.V3
@@ -84,6 +87,7 @@ export const generateAddressPayload = (
     }
   }
 
+  // Generates destination parameter with account address
   if (scenario === 'ParaToPara' && pallet === 'PolkadotXcm') {
     return {
       [version]: {
@@ -140,6 +144,7 @@ export const generateAddressPayload = (
 }
 
 // TODO: Refactor this function
+// Create VersionedMultiasset
 export const createCurrencySpecification = (
   amount: string,
   scenario: TScenario,
@@ -393,6 +398,34 @@ export const createHeaderPolkadotXCM = (
       }
     }
   }
+}
+
+export const createTransferDestination = (
+  scenario: TScenario,
+  version: Version,
+  nodeId?: number
+): any => {
+  // if (scenario === 'ParaToRelay') {
+  //     throw new Error(`xTokens.transferMultiassets not available for scenario: ${scenario}`)
+  //   }
+  
+
+  if (scenario === 'ParaToPara') {
+    if(nodeId === undefined){
+      throw new Error(`xTokens.transferMultiassets Destination parachain not specified`)
+    }
+    return {
+      [version]: {
+        parents: 1,
+        interior: {
+          X1: {
+            Parachain: nodeId
+          }
+        }
+      }
+    }
+  }
+  throw new Error(`xTokens.transferMultiassets not available for scenario: ${scenario}`)
 }
 
 export const getNode = (node: TNode): ParachainNode => {

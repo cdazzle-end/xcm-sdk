@@ -9,6 +9,7 @@ import {
   type Extrinsic,
   type TScenario,
   type IXTokensTransfer,
+  type IXTokensTransferMultiassets,
   type IPolkadotXCMTransfer,
   type IXTransferTransfer,
   Version,
@@ -28,7 +29,9 @@ import { constructRelayToParaParameters } from '../pallets/xcmPallet/utils'
 const supportsXTokens = (obj: any): obj is IXTokensTransfer => {
   return 'transferXTokens' in obj
 }
-
+const supportsXTokensTransferMultiassets = (obj: any): obj is IXTokensTransferMultiassets => {
+  return 'transferXTokensMultiassets' in obj
+}
 const supportsPolkadotXCM = (obj: any): obj is IPolkadotXCMTransfer => {
   return 'transferPolkadotXCM' in obj
 }
@@ -91,7 +94,35 @@ abstract class ParachainNode {
     const scenario: TScenario = destination !== undefined ? 'ParaToPara' : 'ParaToRelay'
     const paraId = destination !== undefined ? getParaId(destination) : undefined
 
-    
+    // REVIEW If this is needed for more nodes, make it a more generic function
+    // Handle multiassets transfer. HydraDX -> Asset Hub Polkadot
+    if(this.node === "HydraDX" && destination === "AssetHubPolkadot" && supportsXTokensTransferMultiassets(this)){
+      if(currencyId === "10"){
+        // Transfer usdt with xTokens.transfer
+
+      } else {
+        // not usdt, xTokens.transferMultiassets send usdt as well to cover fees
+        this.transferXTokensMultiassets({
+          api,
+          currency: currencySymbol,
+          currencyID: currencyId,
+          amount,
+          addressSelection: generateAddressPayload(
+            api,
+            scenario,
+            'XTokens',
+            to,
+            this.version,
+            paraId
+          ),
+          fees: getFees(scenario),
+          scenario,
+          serializedApiCallEnabled
+        })
+      }
+    }
+
+
     if (supportsXTokens(this)) {
       // console.log("Building x tokens")
       // console.log(`currencySymbol: ${currencySymbol} | currencyId: ${currencyId}`)

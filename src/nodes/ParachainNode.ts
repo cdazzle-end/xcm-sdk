@@ -98,7 +98,7 @@ abstract class ParachainNode {
     // Handle multiassets transfer. HydraDX -> Asset Hub Polkadot
     if(this.node === "HydraDX" && destination === "AssetHubPolkadot" && supportsXTokensTransferMultiassets(this)){
       if(currencyId !== "10"){
-        this.transferXTokensMultiassets({
+        return this.transferXTokensMultiassets({
           api,
           currency: currencySymbol,
           currencyID: currencyId,

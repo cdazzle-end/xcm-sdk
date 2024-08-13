@@ -42,7 +42,7 @@ class HydraDX extends ParachainNode implements IXTokensTransfer, IXTokensTransfe
 
 }
 
-// Creates asset multilocation relative to sending node. Assets from registry will have full multilocation
+// Creates params asset multilocation, relative to sending node, and fungible amount. Assets from registry will have full multilocation
 export const createAssetMultilocationAndAmount = (
   amount: string,
   scenario: TScenario,
@@ -73,6 +73,21 @@ export const createAssetMultilocationAndAmount = (
     parentsValue = 0
   }
 
+  // const multiAsset = {
+  //   V3: [
+  //     {
+  //       id: {
+  //         Concrete: {
+  //           parents: parentsValue,
+  //           interior: assetMultilocation
+  //         }
+  //       },
+  //       fun: {
+  //         Fungible: amount
+  //       }
+  //     }
+  //   ]
+  // }
   const multiAsset = {
     V3: [
       {

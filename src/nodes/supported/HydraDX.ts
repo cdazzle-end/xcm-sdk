@@ -33,17 +33,24 @@ class HydraDX extends ParachainNode implements IXTokensTransfer, IXTokensTransfe
   transferXTokensMultiassets(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {
     const { amount, currencyID, scenario } = input
 
-    const currencyAssetParameter = createAssetMultilocationAndAmount(amount, scenario, this.node, currencyID)
-    const feeAssetParameter = createAssetMultilocationAndAmount(USDT_FEE_AMOUNT, scenario, this.node, USDT_ID)
+    const currencyAssetParameter = createMultiassetAndAmount(amount, scenario, this.node, currencyID)
+    const feeAssetParameter = createMultiassetAndAmount(USDT_FEE_AMOUNT, scenario, this.node, USDT_ID)
+
+    const assetParameters = {
+      [this.version]: [
+        currencyAssetParameter,
+        feeAssetParameter
+      ]
+    }
 
     // By this point, all params should be created
-    return XTokensTransferImpl.transferXTokensMultiassets(input, currencyAssetParameter, feeAssetParameter)
+    return XTokensTransferImpl.transferXTokensMultiassets(input, assetParameters)
   }
 
 }
 
 // Creates params asset multilocation, relative to sending node, and fungible amount. Assets from registry will have full multilocation
-export const createAssetMultilocationAndAmount = (
+export const createMultiassetAndAmount = (
   amount: string,
   scenario: TScenario,
   senderNode: TNode,

@@ -50,10 +50,10 @@ class XTokensTransferImpl {
   ): Extrinsic | TSerializedApiCall {
     const module = lowercaseFirstLetter(pallet.toString())
 
-    console.log(`XTokensTransferMultiassets parameters ${module} | CurrencyID: ${JSON.stringify(currencyMultiasset)} | Amount: ${amount} | Address: ${JSON.stringify(addressSelection)} | fees: ${fees}`)
-
+    console.log(`XTokensTransferMultiassets parameters ${module} | transferMultiassets | CurrencyID: ${JSON.stringify(currencyMultiasset)} | Amount: ${amount} | Address: ${JSON.stringify(addressSelection)} | fees: ${fees}`)
     const feeIndex = 1;
     const assets = [currencyMultiasset, feeMultiasset]
+    console.log(`Params assets: ${JSON.stringify(assets, null, 2)} | feeIndex: ${feeIndex} | addressSelection: ${JSON.stringify(addressSelection, null, 2)} | fees: ${fees}`)
     // console.log(`Serialized API Call Enabled: ${serializedApiCallEnabled}`)
     if (serializedApiCallEnabled === true) {
       return {

@@ -88,23 +88,19 @@ export const createAssetMultilocationAndAmount = (
   //     }
   //   ]
   // }
-  const multiAsset = {
-    V3: [
-      {
-        id: {
-          Concrete: {
-            parents: parentsValue,
-            interior: assetMultilocation
-          }
-        },
-        fun: {
-          Fungible: amount
-        }
+  const multiAssetAndAmount = {
+    id: {
+      Concrete: {
+        parents: parentsValue,
+        interior: assetMultilocation
       }
-    ]
+    },
+    fun: {
+      Fungible: amount
+    }
   }
 
-  return multiAsset
+  return multiAssetAndAmount
 }
 // eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
 type TokenLocationValue = Array<{ [key: string]: string }> | { [key: string]: string };

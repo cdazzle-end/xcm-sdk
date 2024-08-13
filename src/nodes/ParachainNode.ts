@@ -97,11 +97,7 @@ abstract class ParachainNode {
     // REVIEW If this is needed for more nodes, make it a more generic function
     // Handle multiassets transfer. HydraDX -> Asset Hub Polkadot
     if(this.node === "HydraDX" && destination === "AssetHubPolkadot" && supportsXTokensTransferMultiassets(this)){
-      if(currencyId === "10"){
-        // Transfer usdt with xTokens.transfer
-
-      } else {
-        // not usdt, xTokens.transferMultiassets send usdt as well to cover fees
+      if(currencyId !== "10"){
         this.transferXTokensMultiassets({
           api,
           currency: currencySymbol,

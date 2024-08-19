@@ -123,7 +123,7 @@ export function getAssetRegistry(relay: TRelayChainType): MyAssetRegistryObject[
 }
 
 // Instead of throwing error here, we return null, and throw the error higher up where there is more context
-export function getAssetRegistryObject(paraId: number, localId: any, relay: TRelayChainType): MyAssetRegistryObject | null{
+export function getAssetRegistryObject(paraId: number, localId: string, relay: TRelayChainType): MyAssetRegistryObject | null{
   const assetRegistry: MyAssetRegistryObject[] = getAssetRegistry(relay)
   const asset = assetRegistry.find((assetRegistryObject: MyAssetRegistryObject) => {
       if(paraId === 0 && assetRegistryObject.tokenData.chain === 0){

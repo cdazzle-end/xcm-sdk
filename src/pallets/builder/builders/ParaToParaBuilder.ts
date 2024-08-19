@@ -12,7 +12,7 @@ class ParaToParaBuilder implements AmountBuilder, AddressBuilder, FinalBuilder {
 
   // private readonly currency: string | number | bigint  
   // REVIEW Changing currency parameter to local id. Will always be a string
-  private readonly currency: any
+  private readonly currency: string
 
   private _amount: string | number | bigint
   private _address: string

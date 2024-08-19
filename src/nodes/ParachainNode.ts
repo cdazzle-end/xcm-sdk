@@ -47,7 +47,7 @@ abstract class ParachainNode {
   // https://github.com/polkadot-js/apps/blob/master/packages/apps-config/src/endpoints/productionRelayKusama.ts
   // https://github.com/polkadot-js/apps/blob/master/packages/apps-config/src/endpoints/productionRelayPolkadot.ts
   // These names can be found under object key 'info'
-  private readonly _name: string
+  private readonly _name: string // Used for endpoint provider lookup apps-config 
 
   private readonly _type: TRelayChainType
 

@@ -15,7 +15,7 @@ import XTokensTransferImpl from '../XTokensTransferImpl'
 
 export class BifrostPolkadot extends ParachainNode implements IXTokensTransfer {
   constructor() {
-    super('BifrostPolkadot', 'bifrostPolkadot', 'polkadot', Version.V3)
+    super('BifrostPolkadot', 'bifrost', 'polkadot', Version.V3)
   }
 
   transferXTokens(input: XTokensTransferInput): Extrinsic | TSerializedApiCall {

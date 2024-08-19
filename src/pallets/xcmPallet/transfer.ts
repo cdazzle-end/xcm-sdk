@@ -165,7 +165,7 @@ export function send(
   api: ApiPromise,
   origin: TNode,
   // currencySymbolOrId: string | number | bigint,
-  currencyId: string,
+  currencyId: any,
   amount: string | number | bigint,
   to: string,
   destination?: TNode

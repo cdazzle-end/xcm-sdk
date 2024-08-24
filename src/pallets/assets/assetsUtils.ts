@@ -129,13 +129,10 @@ export function getAssetRegistryObject(paraId: number, localId: string, relay: T
       if(paraId === 0 && assetRegistryObject.tokenData.chain === 0){
           return true
       }
-      // console.log(JSON.stringify(assetRegistryObject.tokenData.localId).replace(/\\|"/g, ""))
       return assetRegistryObject.tokenData.chain === paraId && JSON.stringify(assetRegistryObject.tokenData.localId).replace(/\\|"/g, "") === localId
   })
   if(asset === undefined){
-      throw new Error(`Balance Adapter: Asset not found in registry: chainId: ${paraId}, localId: ${localId} | localId stringify: ${JSON.stringify(localId)}`)
-      // throw new AssetObjectNotFound(localId, paraId)
-      // return null
+      throw new Error(`Paraspell: Asset not found in registry: chainId: ${paraId}, localId: ${localId} | localId stringify: ${JSON.stringify(localId)}`)
   }
   return asset
 }

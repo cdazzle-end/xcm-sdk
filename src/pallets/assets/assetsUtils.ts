@@ -9,6 +9,7 @@ import fs from 'fs'
 import path from 'path'
 import { AssetDestinationError } from '../../errors/AssetDestinationError'
 import { getNode } from '../../utils'
+// import { [[2024-08-27]] } from '../../utils'
 
 // import fs from 'fs';
 // import path from 'path';
@@ -111,6 +112,63 @@ export const getAssetByLocalId = (
 
   return assetRegistryObject
 
+}
+export function getAssetRegistryObjectBySymbol(
+  chainId: number,
+  // chain: TNode,
+  symbol: string,
+  relay: TRelayChainType
+): MyAssetRegistryObject {
+  const assetRegistry = getAssetRegistry(relay);
+  let asset = assetRegistry.find((assetRegistryObject: MyAssetRegistryObject) => {
+      return (
+          assetRegistryObject.tokenData.chain === chainId &&
+          JSON.stringify(
+              assetRegistryObject.tokenData.symbol
+          ).toLowerCase() === JSON.stringify(symbol).toLowerCase()
+      );
+  });
+  if (asset !== undefined) {
+      return asset;
+  }
+
+  if (symbol.toUpperCase() === "XCKSM" && chainId === 2023) {
+      asset = assetRegistry.find((assetRegistryObject: MyAssetRegistryObject) => {
+          return (
+              assetRegistryObject.tokenData.chain === chainId &&
+              assetRegistryObject.tokenData.symbol.toUpperCase() === "XCKSM"
+          );
+      });
+  }
+  if (asset !== undefined) return asset;
+
+  // Try again but account for xc
+  if (symbol.toLowerCase().startsWith("xc")) {
+      const symbolNoPrefix = symbol.slice(2);
+      asset = assetRegistry.find((assetRegistryObject: MyAssetRegistryObject) => {
+          return (
+              assetRegistryObject.tokenData.chain === chainId &&
+              assetRegistryObject.tokenData.symbol.toLowerCase() ===
+                  symbolNoPrefix.toLowerCase()
+          );
+      });
+  } else {
+      const symbolYesPrefix = "xc" + symbol;
+      asset = assetRegistry.find((assetRegistryObject: MyAssetRegistryObject) => {
+          return (
+              assetRegistryObject.tokenData.chain === chainId &&
+              assetRegistryObject.tokenData.symbol.toLowerCase() ===
+                  symbolYesPrefix.toLowerCase()
+          );
+      });
+  }
+
+  if (asset === undefined) {
+      throw new Error(
+          `Asset not found in registry: chainId: ${chainId}, symbol: ${symbol}`
+      );
+  }
+  return asset;
 }
 
 // TODO Make asset registry a dynamic import, not a static file read from absolute path

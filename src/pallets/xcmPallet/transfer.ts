@@ -22,7 +22,7 @@ const sendCommonReworked = (
   destination?: TNode,
   serializedApiCallEnabled = false
 ): Extrinsic | TSerializedApiCall => {
-  console.log(`sendCommonReworked function: Params: ${origin}, ${assetId}, ${amount}, ${to}, ${destination}`)
+  // console.log(`sendCommonReworked function: Params: ${origin}, ${assetId}, ${amount}, ${to}, ${destination}`)
 
   const originAssetRegistryObject = getAssetByLocalId(origin, assetId)
   
@@ -30,13 +30,13 @@ const sendCommonReworked = (
   if(originAssetRegistryObject == null){
     throw new AssetObjectNotFoundError(origin, assetId)
   }
-  console.log(`sendCommonReworked function: Asset object token data: ${JSON.stringify(originAssetRegistryObject.tokenData)} `)
+  // console.log(`sendCommonReworked function: Asset object token data: ${JSON.stringify(originAssetRegistryObject.tokenData)} `)
 
   // If asset has no location, throw xcm error
   if(!originAssetRegistryObject.hasLocation){
     throw new AssetNotXcmTransferrableError(origin, originAssetRegistryObject)
   }
-  console.log(`sendCommonReworked function: Asset object location: ${JSON.stringify(originAssetRegistryObject.tokenLocation)}`)
+  // console.log(`sendCommonReworked function: Asset object location: ${JSON.stringify(originAssetRegistryObject.tokenLocation)}`)
 
 
   // Will throw if nodes on different relay or if asset not found on destination node
@@ -74,7 +74,7 @@ const sendCommon = (
   }
   
   const asset = getAssetBySymbolOrId(origin, currencySymbolOrId.toString())
-  console.log(`sendCommon function: Params: ${origin}, ${currencySymbolOrId}, ${amount}, ${to}, ${destination} | Paraspell Asset: ${JSON.stringify(asset)}`)
+  // console.log(`sendCommon function: Params: ${origin}, ${currencySymbolOrId}, ${amount}, ${to}, ${destination} | Paraspell Asset: ${JSON.stringify(asset)}`)
 
   // Check transferring between nodes on same relay
   if (destination !== undefined) {

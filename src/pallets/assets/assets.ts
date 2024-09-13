@@ -23,6 +23,16 @@ export const getAssetId = (node: TNode, symbol: string): string | null => {
 export const getRelayChainSymbol = (node: TNode): TRelayChainSymbol =>
   getAssetsObject(node).relayChainAssetSymbol
 
+/**
+ * Get DOT asset to create para to relay trasaction. If node is evm chain, add XC to the symbol
+ * 
+ * @param node 
+ */
+export const getParaToRelayAssetSymbol = (node: TNode): string => {
+  const relayChainSymbol = getRelayChainSymbol(node)
+  return node === "Moonriver" || node === "Shiden" || node === "Moonbeam" || node === "Astar" ? `XC${relayChainSymbol}` : relayChainSymbol
+}
+
 export const getNativeAssets = (node: TNode): TNativeAssetDetails[] =>
   getAssetsObject(node).nativeAssets
 

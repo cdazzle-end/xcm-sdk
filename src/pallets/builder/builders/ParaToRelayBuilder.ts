@@ -2,9 +2,10 @@
 
 import { type ApiPromise } from '@polkadot/api'
 import { send, sendSerializedApiCall } from '../../xcmPallet'
-import { type TSerializedApiCall, type Extrinsic, type TNode } from '../../../types'
-import { getRelayChainSymbol } from '../../assets'
+import { type TSerializedApiCall, type Extrinsic, type TNode, TRelayChainType } from '../../../types'
+import { getParaId, getParaToRelayAssetSymbol, getRelayChainSymbol } from '../../assets'
 import { type AddressBuilder, type FinalBuilder } from './Builder'
+import { getAssetRegistryObjectBySymbol } from '../../assets/assetsUtils'
 
 class ParaToRelayBuilder implements AddressBuilder, FinalBuilder {
   private readonly api: ApiPromise
@@ -29,8 +30,15 @@ class ParaToRelayBuilder implements AddressBuilder, FinalBuilder {
   }
 
   build(): Extrinsic {
-    const currency = getRelayChainSymbol(this.from)
-    return send(this.api, this.from, currency, this.amount, this._address)
+    // const currency = getRelayChainSymbol(this.from)
+    const currency = getParaToRelayAssetSymbol(this.from)
+    const chainId = getParaId(this.from) 
+
+    const relay: TRelayChainType = getRelayChainSymbol(this.from) === "DOT" ? "polkadot" : "kusama"
+
+    const assetObject = getAssetRegistryObjectBySymbol(chainId, currency, relay)
+    const currencyInput = JSON.stringify(assetObject.tokenData.localId).replace(/\\|"/g, "")
+    return send(this.api, this.from, currencyInput, this.amount, this._address)
   }
 
   buildSerializedApiCall(): TSerializedApiCall {

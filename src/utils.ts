@@ -171,7 +171,6 @@ export const createCurrencySpecification = (
   }
 
   if (scenario === 'RelayToPara' || scenario === 'ParaToPara') {
-    console.log('polkadotXCM Native currency to sender chain transfer')
     if ((node === 'Darwinia' || node === 'Crab') && scenario === 'ParaToPara') {
       if(cur !== 'RING' && cur !== 'CRAB'){
         throw new Error(`XCM transfer not configured for ${node} | ${cur}`)

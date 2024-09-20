@@ -5,10 +5,12 @@ import type { MyAssetRegistryObject, TNode, TRelayChainType } from '../../types'
 import { getAssetsObject, getParaId } from './assets'
 import * as allAssetsKusama from '../../maps/allAssets.json'
 import * as allAssetsPolkadot from '../../maps/allAssetsPolkadot.json'
-import fs from 'fs'
-import path from 'path'
+// import fs from 'fs'
+// import path from 'path'
 import { AssetDestinationError } from '../../errors/AssetDestinationError'
 import { getNode } from '../../utils'
+import { getAssetRegistry } from '@polkadot-assets/updater'
+export { getAssetRegistry }
 // import { [[2024-08-27]] } from '../../utils'
 
 // import fs from 'fs';
@@ -172,13 +174,14 @@ export function getAssetRegistryObjectBySymbol(
 }
 
 // TODO Make asset registry a dynamic import, not a static file read from absolute path
-export function getAssetRegistry(relay: TRelayChainType): MyAssetRegistryObject[]{
-  // Using absolute path because paraspell is imported into arb-executor
-  const polkadotAssetsDir = 'C:/Users/dazzl/CodingProjects/substrate/polkadot_assets/assets/asset_registry'
-  const assetRegistryPath = relay === 'kusama' ? 'allAssetsKusamaCollected.json' : 'allAssetsPolkadotCollected.json'
-  const assetRegistry: MyAssetRegistryObject[] = JSON.parse(fs.readFileSync(path.join(polkadotAssetsDir, assetRegistryPath), 'utf8'));
-  return assetRegistry
-}
+// export function getAssetRegistry(relay: TRelayChainType): MyAssetRegistryObject[]{
+//   // Using absolute path because paraspell is imported into arb-executor
+//   // const polkadotAssetsDir = 'C:/Users/dazzl/CodingProjects/substrate/polkadot_assets/assets/asset_registry'
+//   // const assetRegistryPath = relay === 'kusama' ? 'allAssetsKusamaCollected.json' : 'allAssetsPolkadotCollected.json'
+//   // const assetRegistry: MyAssetRegistryObject[] = JSON.parse(fs.readFileSync(path.join(polkadotAssetsDir, assetRegistryPath), 'utf8'));
+//   let assetRegistry = getAssetRegistry(relay)
+//   return assetRegistry
+// }
 
 // Instead of throwing error here, we return null, and throw the error higher up where there is more context
 export function getAssetRegistryObject(paraId: number, localId: string, relay: TRelayChainType): MyAssetRegistryObject | null{
